@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hero Shooter Character Generator — Interactive Alignment Tool</title>
+<style>
+:root {
+  --bg:#10131a; --panel:#181d27; --panel-2:#202635; --text:#f4f6fb; --muted:#aeb7c8;
+  --line:#31394a; --accent:#9bd7ff; --accent-2:#d6b4ff; --field:#0f131b;
+}
+* { box-sizing:border-box; }
+body { margin:0; font-family:Arial, Helvetica, sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
+header { padding:56px 22px 32px; background:linear-gradient(135deg,#151b28,#1e2637 55%,#241b35); border-bottom:1px solid var(--line); }
+.wrap { max-width:1180px; margin:0 auto; }
+h1 { margin:0 0 12px; font-size:clamp(2rem,5vw,4rem); line-height:1.05; letter-spacing:-0.04em; }
+h2 { margin:0 0 12px; font-size:1.45rem; letter-spacing:-0.02em; }
+p { margin:0 0 14px; color:var(--muted); }
+.intro { max-width:820px; font-size:1.08rem; }
+main { padding:28px 22px 64px; }
+.section { margin-top:30px; }
+.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:18px; }
+.grid.two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+.card, .brief, .note { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 10px 30px rgba(0,0,0,0.18); }
+.brief { background:var(--panel-2); border-radius:22px; }
+.card p { font-size:.92rem; min-height:42px; }
+label { display:block; font-weight:700; margin-bottom:8px; }
+select, textarea, input[type="text"] { width:100%; border:1px solid var(--line); border-radius:12px; background:var(--field); color:var(--text); padding:12px; font-size:1rem; }
+select:focus, textarea:focus, input[type="text"]:focus { outline:2px solid var(--accent); outline-offset:2px; }
+textarea { min-height:118px; resize:vertical; }
+.brief-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.full { grid-column:1 / -1; }
+.helper { font-size:.88rem; color:var(--muted); margin-top:6px; }
+.pill { display:inline-block; margin:0 8px 8px 0; padding:6px 10px; border:1px solid var(--line); border-radius:999px; color:var(--muted); background:rgba(255,255,255,.03); font-size:.86rem; }
+.tier { display:inline-block; margin:0 0 10px; padding:4px 9px; border-radius:999px; font-size:.76rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; border:1px solid var(--line); }
+.core { color:var(--accent); background:rgba(155,215,255,.08); border-color:rgba(155,215,255,.28); }
+.supporting { color:var(--accent-2); background:rgba(214,180,255,.08); border-color:rgba(214,180,255,.28); }
+.wildcard { color:#ffd99b; background:rgba(255,217,155,.08); border-color:rgba(255,217,155,.28); }
+.matrix { width:100%; border-collapse:collapse; margin-top:12px; overflow:hidden; border-radius:12px; }
+.matrix th, .matrix td { border:1px solid var(--line); padding:10px; vertical-align:top; }
+.matrix th { text-align:left; color:var(--text); background:rgba(255,255,255,.04); }
+.note { background:rgba(155,215,255,.08); border-color:rgba(155,215,255,.24); margin-top:18px; }
+.note strong { color:var(--accent); }
+
+.actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:14px; }
+button { border:1px solid rgba(155,215,255,.35); border-radius:12px; background:rgba(155,215,255,.12); color:var(--text); padding:10px 14px; font-size:.95rem; font-weight:700; cursor:pointer; }
+button:hover { background:rgba(155,215,255,.2); }
+button.secondary { border-color:rgba(214,180,255,.35); background:rgba(214,180,255,.10); }
+button.warning { border-color:rgba(255,217,155,.35); background:rgba(255,217,155,.10); }
+.status { min-height:24px; margin-top:10px; font-size:.9rem; color:var(--accent); }
+.output-box { min-height:340px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size:.92rem; }
+.mini-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:14px; }
+@media (max-width:900px) { .mini-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:620px) { .mini-grid { grid-template-columns:1fr; } }
+
+@media (max-width:900px) { .grid, .grid.two, .brief-grid { grid-template-columns:1fr; } .full { grid-column:auto; } }
+@media print { body { background:white; color:black; } header, main { padding:18px; } .card,.brief,.note { box-shadow:none; border-color:#999; background:white; } p,.helper { color:#333; } select,textarea,input[type="text"] { color:black; background:white; border-color:#999; } }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<h1>Hero Shooter Character Generator</h1>
+<p class="intro">An interactive character worksheet. Start with player motivation archetypes, randomize or tune the pillars, then generate a copy-ready prompt for GPT to create a full character brief.</p>
+<div aria-label="Generator tags"><span class="pill">12 Archetypes</span><span class="pill">Core Gameplay</span><span class="pill">Character Identity</span><span class="pill">Director Pitch</span><span class="pill">Alignment Tuning</span><span class="pill">Randomizer</span><span class="pill">GPT Prompt Export</span></div>
+</div></header>
+<main><div class="wrap">
+
+<section class="section">
+<h2>Quick Generation Controls</h2>
+<p>Use these buttons to roll a full concept, then use Alignment Tuning to make the result cleaner, more surprising, or less one-note.</p>
+<div class="brief">
+<div class="actions">
+<button type="button" id="randomize-all">Randomize Full Character</button>
+<button type="button" id="randomize-core" class="secondary">Randomize Core Only</button>
+<button type="button" id="randomize-supporting" class="secondary">Randomize Supporting Only</button>
+<button type="button" id="randomize-wildcards" class="warning">Randomize Wildcards Only</button>
+<button type="button" id="reset-all" class="warning">Reset All Fields</button>
+</div>
+<div class="helper">Randomization never removes options from the dropdowns. It simply chooses from the existing hard-coded values.</div>
+<div class="status" id="generator-status" aria-live="polite">Ready.</div>
+</div>
+</section>
+
+<section class="section">
+<h2>1. Player Motivation</h2>
+<p>Start here. These archetypes ground the character in a proven competitive hero-shooter player desire. Pick a primary motivation and, only if useful, a secondary motivation.</p>
+<div class="grid two"><div class="card">
+<span class="tier core">Core: 90–100% aligned</span>
+<label for="primary-archetype">Primary Archetype</label>
+<p>The main reason a player would choose or main this hero.</p>
+<select id="primary-archetype" name="primary-archetype">
+  <option selected>Choose an archetype</option>
+  <option>Dive Skirmisher — speed, mastery, aggressive outplays</option>
+  <option>Protective Anchor — protection, reliability, team survival</option>
+  <option>Tactical Commander — strategy, coordination, tempo control</option>
+  <option>Trickster Infiltrator — deception, sabotage, psychological pressure</option>
+  <option>Battlefield Engineer — construction, setup, territorial ownership</option>
+  <option>Precision Eliminator — aim mastery, patience, decisive picks</option>
+  <option>Area Controller — denial, zoning, positional dominance</option>
+  <option>Sustain Savior — healing, rescue, recovery, clutch stabilization</option>
+  <option>Disruptive Bruiser — brawling, pressure, enemy formation breaking</option>
+  <option>Scaling Powerhouse — risk, momentum, late-fight dominance</option>
+  <option>Information Hunter — scouting, prediction, target tracking</option>
+  <option>Expressive Wildcard — creativity, chaos, unusual problem-solving</option>
+</select>
+</div><div class="card">
+<span class="tier supporting">Supporting: 60–80% aligned</span>
+<label for="secondary-archetype">Secondary Archetype</label>
+<p>An optional supporting appeal. Use it to add nuance, not confusion.</p>
+<select id="secondary-archetype" name="secondary-archetype">
+  <option selected>Choose an archetype</option>
+  <option>Dive Skirmisher — speed, mastery, aggressive outplays</option>
+  <option>Protective Anchor — protection, reliability, team survival</option>
+  <option>Tactical Commander — strategy, coordination, tempo control</option>
+  <option>Trickster Infiltrator — deception, sabotage, psychological pressure</option>
+  <option>Battlefield Engineer — construction, setup, territorial ownership</option>
+  <option>Precision Eliminator — aim mastery, patience, decisive picks</option>
+  <option>Area Controller — denial, zoning, positional dominance</option>
+  <option>Sustain Savior — healing, rescue, recovery, clutch stabilization</option>
+  <option>Disruptive Bruiser — brawling, pressure, enemy formation breaking</option>
+  <option>Scaling Powerhouse — risk, momentum, late-fight dominance</option>
+  <option>Information Hunter — scouting, prediction, target tracking</option>
+  <option>Expressive Wildcard — creativity, chaos, unusual problem-solving</option>
+</select>
+</div></div></section><section class="section">
+<h2>2. Core Gameplay Pillars</h2>
+<p>These are the fast-read fields for director reviews and early concept alignment.</p>
+<div class="grid"><div class="card">
+<span class="tier core">Core: 90–100% aligned</span>
+<label for="combat-fantasy">Fantasy / Combat Fantasy</label>
+<p>What the player should feel like moment-to-moment.</p>
+<select id="combat-fantasy" name="combat-fantasy">
+  <option selected>Choose a combat fantasy</option>
+  <option>Relentless aggressor</option>
+  <option>Precise specialist</option>
+  <option>Mobile duelist</option>
+  <option>Defensive anchor</option>
+  <option>Battlefield manipulator</option>
+  <option>Calculated hunter</option>
+  <option>Chaotic disruptor</option>
+  <option>Resilient survivor</option>
+  <option>Strategic commander</option>
+  <option>Experimental wildcard</option>
+  <option>Silent infiltrator</option>
+  <option>High-risk powerhouse</option>
+  <option>Adaptive generalist</option>
+  <option>Protective champion</option>
+  <option>Patient controller</option>
+  <option>Explosive initiator</option>
+  <option>Unshakable sentinel</option>
+  <option>Opportunistic skirmisher</option>
+  <option>Elegant marksman</option>
+  <option>Brutal enforcer</option>
+  <option>Resourceful tactician</option>
+  <option>Elusive saboteur</option>
+  <option>Fearless vanguard</option>
+  <option>Disciplined operator</option>
+  <option>Unpredictable brawler</option>
+  <option>Graceful evasive fighter</option>
+  <option>Heavy weapons expert</option>
+  <option>Close-quarters menace</option>
+  <option>Long-range threat</option>
+  <option>Objective-focused specialist</option>
+  <option>Supportive combatant</option>
+  <option>Methodical executioner</option>
+  <option>Improvised fighter</option>
+  <option>Dominating presence</option>
+  <option>Fast-striking raider</option>
+  <option>Cunning trapper</option>
+  <option>Balanced team fighter</option>
+  <option>Technical expert</option>
+  <option>Heroic rescuer</option>
+  <option>Relentless pursuer</option>
+  <option>Crisis responder</option>
+  <option>Controlled demolitionist</option>
+  <option>Survivalist fighter</option>
+  <option>Team-first protector</option>
+  <option>Pressure-building fighter</option>
+  <option>Patient ambusher</option>
+  <option>Precision duelist</option>
+  <option>Fearsome frontliner</option>
+</select>
+</div><div class="card">
+<span class="tier core">Core: 90–100% aligned</span>
+<label for="battlefield-role">Function / Battlefield Role</label>
+<p>How the character contributes to the team and match flow.</p>
+<select id="battlefield-role" name="battlefield-role">
+  <option selected>Choose a battlefield role</option>
+  <option>Frontline pressure</option>
+  <option>Area control</option>
+  <option>Team sustain</option>
+  <option>Information advantage</option>
+  <option>Backline disruption</option>
+  <option>Objective defense</option>
+  <option>Objective initiation</option>
+  <option>Enemy displacement</option>
+  <option>Ally protection</option>
+  <option>Pick potential</option>
+  <option>Zone denial</option>
+  <option>Mobility support</option>
+  <option>Resource generation</option>
+  <option>Counterplay specialist</option>
+  <option>Tempo control</option>
+  <option>Formation breaking</option>
+  <option>Damage amplification</option>
+  <option>Cooldown management</option>
+  <option>Revive or recovery support</option>
+  <option>Flank protection</option>
+  <option>Route control</option>
+  <option>Retreat denial</option>
+  <option>Advance support</option>
+  <option>Vision denial</option>
+  <option>Objective contesting</option>
+  <option>Payload escort</option>
+  <option>Burst setup</option>
+  <option>Threat suppression</option>
+  <option>Defensive rotation</option>
+  <option>Offensive rotation</option>
+  <option>Team repositioning</option>
+  <option>Space creation</option>
+  <option>Space stabilization</option>
+  <option>Crowd disruption</option>
+  <option>Anti-mobility pressure</option>
+  <option>Anti-defense pressure</option>
+  <option>Sustained pressure</option>
+  <option>Tactical rescue</option>
+  <option>Engagement control</option>
+  <option>Disengagement support</option>
+  <option>Line-of-sight control</option>
+  <option>Resource denial</option>
+  <option>Pressure relief</option>
+  <option>Follow-up damage</option>
+  <option>Team anchoring</option>
+  <option>Skirmish enabling</option>
+  <option>Map control</option>
+  <option>Clutch stabilization</option>
+</select>
+</div><div class="card">
+<span class="tier core">Core: 90–100% aligned</span>
+<label for="signature-mechanic">Hook / Signature Mechanic</label>
+<p>The memorable gameplay hook that makes them distinct.</p>
+<select id="signature-mechanic" name="signature-mechanic">
+  <option selected>Choose a signature mechanic</option>
+  <option>Marking targets</option>
+  <option>Building momentum</option>
+  <option>Swapping forms</option>
+  <option>Deploying constructs</option>
+  <option>Manipulating movement</option>
+  <option>Redirecting damage</option>
+  <option>Trading health for power</option>
+  <option>Controlling sightlines</option>
+  <option>Transforming terrain</option>
+  <option>Sharing resources</option>
+  <option>Timing windows</option>
+  <option>Chaining eliminations</option>
+  <option>Creating decoys</option>
+  <option>Charging abilities</option>
+  <option>Repositioning allies or enemies</option>
+  <option>Converting defense into offense</option>
+  <option>Creating temporary safe zones</option>
+  <option>Altering weapon behavior</option>
+  <option>Managing a secondary resource</option>
+  <option>Creating zones of influence</option>
+  <option>Storing and releasing power</option>
+  <option>Linking to allies</option>
+  <option>Punishing enemy actions</option>
+  <option>Rewarding precision timing</option>
+  <option>Amplifying repeated hits</option>
+  <option>Sacrificing mobility for strength</option>
+  <option>Sacrificing defense for speed</option>
+  <option>Extending ability duration</option>
+  <option>Changing rules in a small area</option>
+  <option>Splitting attention with summons</option>
+  <option>Revealing hidden information</option>
+  <option>Concealing team movement</option>
+  <option>Turning objectives into advantages</option>
+  <option>Recycling spent resources</option>
+  <option>Borrowing enemy strengths</option>
+  <option>Adapting to damage types</option>
+  <option>Building structures over time</option>
+  <option>Consuming marks for effects</option>
+  <option>Empowering allies through proximity</option>
+  <option>Weakening enemies through proximity</option>
+  <option>Shifting between ranges</option>
+  <option>Preparing delayed effects</option>
+  <option>Interrupting enemy abilities</option>
+  <option>Creating escape routes</option>
+  <option>Locking down escape routes</option>
+  <option>Rewarding coordinated focus fire</option>
+  <option>Rewarding solo outplays</option>
+  <option>Escalating from nonlethal control</option>
+  <option>Converting movement into damage</option>
+  <option>Converting damage into utility</option>
+  <option>Protecting one ally especially well</option>
+  <option>Projecting threat through obstacles</option>
+  <option>Using rhythm-based timing</option>
+  <option>Turning misses into setup</option>
+</select>
+</div><div class="card">
+<span class="tier supporting">Supporting: 70–90% aligned</span>
+<label for="escalation-fantasy">Growth / Escalation Fantasy</label>
+<p>How the character becomes more exciting over time.</p>
+<select id="escalation-fantasy" name="escalation-fantasy">
+  <option selected>Choose an escalation fantasy</option>
+  <option>Builds power through pressure</option>
+  <option>Rewards careful preparation</option>
+  <option>Snowballs from successful plays</option>
+  <option>Grows stronger by protecting allies</option>
+  <option>Unlocks potential through risk</option>
+  <option>Controls more space over time</option>
+  <option>Adapts after reading the enemy</option>
+  <option>Cycles between calm and burst</option>
+  <option>Turns survival into advantage</option>
+  <option>Sets up a decisive payoff</option>
+  <option>Gains options through teamwork</option>
+  <option>Becomes dangerous when cornered</option>
+  <option>Expands influence with each ability use</option>
+  <option>Peaks during objective fights</option>
+  <option>Gains confidence through success</option>
+  <option>Becomes safer after setup</option>
+  <option>Becomes faster under pressure</option>
+  <option>Becomes more precise over time</option>
+  <option>Unlocks stronger team utility</option>
+  <option>Turns mistakes into recovery</option>
+  <option>Becomes threatening after patience</option>
+  <option>Grows through map control</option>
+  <option>Improves as enemies group up</option>
+  <option>Improves as enemies spread out</option>
+  <option>Reaches a powerful final state</option>
+  <option>Accumulates advantage slowly</option>
+  <option>Creates a rising sense of danger</option>
+  <option>Converts early weakness into late strength</option>
+  <option>Rewards repeated discipline</option>
+  <option>Rewards bold tempo swings</option>
+  <option>Turns defensive holds into counterattacks</option>
+  <option>Turns successful escapes into momentum</option>
+  <option>Amplifies allies during key moments</option>
+  <option>Becomes stronger near objectives</option>
+  <option>Becomes stronger away from allies</option>
+  <option>Becomes stronger when outnumbered</option>
+  <option>Becomes stronger while supported</option>
+  <option>Peaks after gathering information</option>
+  <option>Peaks after denying resources</option>
+  <option>Peaks after controlling routes</option>
+  <option>Resets power after big plays</option>
+  <option>Burns bright in short windows</option>
+</select>
+</div></div></section><section class="section">
+<h2>3. Character Identity</h2>
+<p>These fields turn a playable fantasy into a specific character with personality, visual language, and story potential.</p>
+<div class="grid"><div class="card">
+<span class="tier supporting">Supporting: 60–80% aligned</span>
+<label for="motivation">Motivation</label>
+<p>Why they fight, compete, serve, or rebel.</p>
+<select id="motivation" name="motivation">
+  <option selected>Choose a motivation</option>
+  <option>Duty</option>
+  <option>Redemption</option>
+  <option>Recognition</option>
+  <option>Survival</option>
+  <option>Protection</option>
+  <option>Discovery</option>
+  <option>Revenge</option>
+  <option>Freedom</option>
+  <option>Control</option>
+  <option>Legacy</option>
+  <option>Justice</option>
+  <option>Curiosity</option>
+  <option>Belonging</option>
+  <option>Ambition</option>
+  <option>Faith</option>
+  <option>Defiance</option>
+  <option>Restoration</option>
+  <option>Truth</option>
+  <option>Honor</option>
+  <option>Security</option>
+  <option>Progress</option>
+  <option>Rebellion</option>
+  <option>Loyalty</option>
+  <option>Mastery</option>
+  <option>Atonement</option>
+  <option>Power</option>
+  <option>Peace</option>
+  <option>Order</option>
+  <option>Liberation</option>
+  <option>Vengeance</option>
+  <option>Wonder</option>
+  <option>Responsibility</option>
+  <option>Pride</option>
+  <option>Competition</option>
+  <option>Hope</option>
+  <option>Obligation</option>
+  <option>Independence</option>
+  <option>Transformation</option>
+  <option>Remembrance</option>
+  <option>Vindication</option>
+  <option>Service</option>
+  <option>Knowledge</option>
+  <option>Respect</option>
+  <option>Balance</option>
+  <option>Escape</option>
+  <option>Devotion</option>
+  <option>Renewal</option>
+  <option>Dominance</option>
+  <option>Reconciliation</option>
+  <option>Preservation</option>
+  <option>Exposure</option>
+  <option>Influence</option>
+  <option>Mercy</option>
+  <option>Purpose</option>
+</select>
+</div><div class="card">
+<span class="tier wildcard">Wildcard: 40–70% aligned</span>
+<label for="character-flaw">Character Flaw</label>
+<p>The internal weakness that creates tension and personality.</p>
+<select id="character-flaw" name="character-flaw">
+  <option selected>Choose a character flaw</option>
+  <option>Recklessness</option>
+  <option>Overconfidence</option>
+  <option>Distrust</option>
+  <option>Guilt</option>
+  <option>Obsession</option>
+  <option>Rigidity</option>
+  <option>Impulsiveness</option>
+  <option>Emotional distance</option>
+  <option>Need for control</option>
+  <option>Fear of failure</option>
+  <option>Self-sacrifice</option>
+  <option>Vengefulness</option>
+  <option>Restlessness</option>
+  <option>Naivety</option>
+  <option>Perfectionism</option>
+  <option>Isolation</option>
+  <option>Pride</option>
+  <option>Unstable loyalty</option>
+  <option>Impatience</option>
+  <option>Jealousy</option>
+  <option>Cowardice</option>
+  <option>Denial</option>
+  <option>Fatalism</option>
+  <option>Paranoia</option>
+  <option>Arrogance</option>
+  <option>Inflexibility</option>
+  <option>People-pleasing</option>
+  <option>Martyr complex</option>
+  <option>Tunnel vision</option>
+  <option>Short temper</option>
+  <option>Avoidance</option>
+  <option>Cynicism</option>
+  <option>Dependency</option>
+  <option>Secretiveness</option>
+  <option>Ruthlessness</option>
+  <option>Indecision</option>
+  <option>Shame</option>
+  <option>Vanity</option>
+  <option>Resentment</option>
+  <option>Escapism</option>
+  <option>Defensiveness</option>
+  <option>Distractibility</option>
+  <option>Mistrust of authority</option>
+  <option>Fear of attachment</option>
+  <option>Need for approval</option>
+  <option>Moral compromise</option>
+  <option>Emotional volatility</option>
+  <option>Hero complex</option>
+  <option>Control through distance</option>
+  <option>Competitive insecurity</option>
+  <option>Fear of change</option>
+  <option>Addiction to risk</option>
+  <option>Lack of empathy</option>
+  <option>Unresolved grief</option>
+</select>
+</div><div class="card">
+<span class="tier wildcard">Wildcard: 40–70% aligned</span>
+<label for="team-relationship">Relationship to Team</label>
+<p>How they behave socially inside a squad dynamic.</p>
+<select id="team-relationship" name="team-relationship">
+  <option selected>Choose a team relationship</option>
+  <option>Guardian</option>
+  <option>Mentor</option>
+  <option>Rival</option>
+  <option>Commander</option>
+  <option>Reluctant ally</option>
+  <option>Morale booster</option>
+  <option>Detached professional</option>
+  <option>Protective older sibling</option>
+  <option>Competitive prodigy</option>
+  <option>Unpredictable wildcard</option>
+  <option>Trusted specialist</option>
+  <option>Quiet observer</option>
+  <option>Ideological challenger</option>
+  <option>Supportive technician</option>
+  <option>Lone wolf learning trust</option>
+  <option>Charismatic instigator</option>
+  <option>Field medic personality</option>
+  <option>Squad backbone</option>
+  <option>Tactical second-in-command</option>
+  <option>Friendly antagonist</option>
+  <option>Big-picture strategist</option>
+  <option>Emotional anchor</option>
+  <option>Pragmatic fixer</option>
+  <option>Protective skeptic</option>
+  <option>Rebellious subordinate</option>
+  <option>Inspirational leader</option>
+  <option>Rules-focused organizer</option>
+  <option>Chaos-loving teammate</option>
+  <option>Soft-spoken caretaker</option>
+  <option>Cynical veteran</option>
+  <option>Earnest rookie</option>
+  <option>Independent contractor</option>
+  <option>Team mascot energy</option>
+  <option>Cool-headed negotiator</option>
+  <option>Blunt truth-teller</option>
+  <option>Secretive informant</option>
+  <option>Shared-risk partner</option>
+  <option>Friendly rival</option>
+  <option>Reluctant protector</option>
+  <option>Mission-first professional</option>
+  <option>Community builder</option>
+  <option>Tactical teacher</option>
+  <option>Respected elder</option>
+  <option>Nervous genius</option>
+  <option>Mischievous instigator</option>
+  <option>Quiet loyalist</option>
+  <option>Bridge between factions</option>
+  <option>Outsider seeking acceptance</option>
+</select>
+</div><div class="card">
+<span class="tier wildcard">Wildcard: 40–70% aligned</span>
+<label for="visual-motif">Visual Motif</label>
+<p>The broad visual language tying the design together.</p>
+<select id="visual-motif" name="visual-motif">
+  <option selected>Choose a visual motif</option>
+  <option>Predatory animals</option>
+  <option>Storms and electricity</option>
+  <option>Solar heat and fire</option>
+  <option>Ice and preservation</option>
+  <option>Stone and fortification</option>
+  <option>Glass and reflection</option>
+  <option>Smoke and shadow</option>
+  <option>Plants and overgrowth</option>
+  <option>Deep sea forms</option>
+  <option>Insects and swarms</option>
+  <option>Angelic shapes</option>
+  <option>Industrial machinery</option>
+  <option>Medical imagery</option>
+  <option>Royal or ceremonial forms</option>
+  <option>Scrap and salvage</option>
+  <option>Stars and navigation</option>
+  <option>Clocks and timing</option>
+  <option>Masks and hidden identity</option>
+  <option>Mirrors and duplication</option>
+  <option>Radio waves and signals</option>
+  <option>Wolves and pack imagery</option>
+  <option>Birds and flight</option>
+  <option>Serpents and coils</option>
+  <option>Roots and natural systems</option>
+  <option>Waves and tides</option>
+  <option>Sand and erosion</option>
+  <option>Magnetism and metal</option>
+  <option>Light and refraction</option>
+  <option>Graffiti and street culture</option>
+  <option>Monastic geometry</option>
+  <option>Military insignia</option>
+  <option>Racing and speed lines</option>
+  <option>Circuitry and data</option>
+  <option>Crystals and minerals</option>
+  <option>Bones and fossils</option>
+  <option>Dreamlike distortion</option>
+  <option>Urban decay</option>
+  <option>Clean laboratory design</option>
+  <option>Nomadic travel gear</option>
+  <option>Fortress architecture</option>
+  <option>Theater and performance</option>
+  <option>Constellations and maps</option>
+  <option>Volcanic rock and ash</option>
+  <option>Wind and banners</option>
+  <option>Mechanical wings</option>
+  <option>Holograms and projections</option>
+  <option>Tactical camouflage</option>
+  <option>Emergency response symbols</option>
+  <option>Religious iconography</option>
+  <option>Festival or parade colors</option>
+  <option>Ancient ruins</option>
+  <option>Corporate minimalism</option>
+  <option>Biohazard shapes</option>
+  <option>Mythic beast silhouettes</option>
+  <option>Smoke signals</option>
+  <option>Prisms and color separation</option>
+  <option>Gravity and orbit</option>
+  <option>Paper, ink, and calligraphy</option>
+  <option>Neon nightlife</option>
+  <option>Weathered frontier gear</option>
+</select>
+</div><div class="card">
+<span class="tier wildcard">Wildcard: 40–70% aligned</span>
+<label for="source-of-power">Source of Power</label>
+<p>Where abilities, equipment, and unusual traits come from.</p>
+<select id="source-of-power" name="source-of-power">
+  <option selected>Choose a source of power</option>
+  <option>Advanced training</option>
+  <option>Experimental technology</option>
+  <option>Improvised engineering</option>
+  <option>Biological mutation</option>
+  <option>Cybernetic enhancement</option>
+  <option>Ancient knowledge</option>
+  <option>Alien influence</option>
+  <option>Psionic ability</option>
+  <option>Elemental force</option>
+  <option>Medical science</option>
+  <option>Military hardware</option>
+  <option>Spiritual discipline</option>
+  <option>Corporate prototype</option>
+  <option>Forbidden research</option>
+  <option>Environmental adaptation</option>
+  <option>Inherited relic</option>
+  <option>Dimensional anomaly</option>
+  <option>Collective network</option>
+  <option>Elite conditioning</option>
+  <option>Tactical doctrine</option>
+  <option>Black-market equipment</option>
+  <option>Lost civilization tech</option>
+  <option>Nanomachine systems</option>
+  <option>Genetic engineering</option>
+  <option>Symbiotic organism</option>
+  <option>Hazard exposure</option>
+  <option>Virtual intelligence</option>
+  <option>Autonomous drone systems</option>
+  <option>Energy harvesting</option>
+  <option>Combat drugs or stimulants</option>
+  <option>Sacred tradition</option>
+  <option>Occult practice</option>
+  <option>Natural attunement</option>
+  <option>Political authority</option>
+  <option>Faction resources</option>
+  <option>Personal invention</option>
+  <option>Recovered battlefield gear</option>
+  <option>Prototype armor</option>
+  <option>Experimental weapon platform</option>
+  <option>Memory transfer</option>
+  <option>Artificial organ systems</option>
+  <option>Rare mineral catalyst</option>
+  <option>Weather-control systems</option>
+  <option>Gravity manipulation</option>
+  <option>Sound-based technology</option>
+  <option>Light-bending equipment</option>
+  <option>Time-distortion effects</option>
+  <option>Neural interface</option>
+  <option>Augmented perception</option>
+  <option>Remote command network</option>
+  <option>Self-built exosuit</option>
+  <option>Adaptive fabric or armor</option>
+  <option>Bio-mechanical grafts</option>
+  <option>Ancestral training lineage</option>
+</select>
+</div></div></section>
+
+<section class="section">
+<h2>4. Alignment Tuning</h2>
+<p>Use this pass after choosing the archetype and pillars. The goal is not perfect alignment. Strong characters usually keep the gameplay fantasy clear while allowing personality and visual identity to create controlled tension.</p>
+<div class="brief">
+<table class="matrix" aria-label="Alignment guidance matrix">
+<thead><tr><th>Tier</th><th>Fields</th><th>Target</th><th>Design Rule</th></tr></thead>
+<tbody>
+<tr><td><span class="tier core">Core</span></td><td>Primary Archetype, Combat Fantasy, Battlefield Role, Signature Mechanic</td><td>90–100% aligned</td><td>These should reinforce the player promise. If these fight each other, the hero will feel confused.</td></tr>
+<tr><td><span class="tier supporting">Supporting</span></td><td>Secondary Archetype, Escalation Fantasy, Motivation</td><td>60–90% aligned</td><td>These should support the main fantasy, but they can add nuance or a secondary emotional appeal.</td></tr>
+<tr><td><span class="tier wildcard">Wildcard</span></td><td>Character Flaw, Relationship to Team, Visual Motif, Source of Power</td><td>40–70% aligned</td><td>This is where you add tension, surprise, and roster freshness without breaking gameplay clarity.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="grid">
+<div class="card">
+<label for="alignment-mode">Overall Alignment Mode</label>
+<p>Choose how safe or surprising this concept should feel.</p>
+<select id="alignment-mode" name="alignment-mode">
+<option selected>Choose an alignment mode</option>
+<option>Clean Read — highly aligned, easy to pitch, low surprise</option>
+<option>Heroic Twist — core aligned, personality has tension</option>
+<option>Visual Twist — core aligned, motif/source are unexpected</option>
+<option>Contradiction Engine — clear gameplay, provocative identity tension</option>
+<option>Roster Wildcard — familiar archetype, unusual execution</option>
+</select>
+</div>
+<div class="card">
+<label for="tension-source">Primary Tension Source</label>
+<p>Pick one area to be less expected. Do not make every field a twist.</p>
+<select id="tension-source" name="tension-source">
+<option selected>Choose a tension source</option>
+<option>Motivation conflicts with archetype expectation</option>
+<option>Flaw complicates the heroic fantasy</option>
+<option>Team relationship changes how allies perceive them</option>
+<option>Visual motif contrasts with gameplay role</option>
+<option>Source of power reframes the fantasy</option>
+<option>Secondary archetype pulls them in a different direction</option>
+</select>
+</div>
+<div class="card">
+<label for="one-note-check">One-Note Check</label>
+<p>If all remaining choices feel predictable after the archetype, add one stronger wildcard.</p>
+<select id="one-note-check" name="one-note-check">
+<option selected>Choose a result</option>
+<option>Too predictable — add a stronger flaw, motif, or source of power twist</option>
+<option>Clear but slightly familiar — add one controlled identity twist</option>
+<option>Strong balance — clear fantasy with memorable tension</option>
+<option>Too scattered — realign core gameplay pillars first</option>
+<option>Too strange — make fantasy, function, or hook more readable</option>
+</select>
+</div>
+</div>
+<div class="brief" style="margin-top:18px;">
+<h3>Run Alignment Pass</h3>
+<p>These controls adjust earlier dropdowns based on the selected archetype, alignment mode, and tension source. They are intentionally opinionated, but you can always override the results manually.</p>
+<div class="actions">
+<button type="button" id="diagnose-alignment">Diagnose Current Alignment</button>
+<button type="button" id="apply-alignment">Apply Alignment Mode</button>
+<button type="button" id="apply-tension" class="secondary">Apply Tension Source</button>
+<button type="button" id="fix-one-note" class="warning">Fix One-Note / Scattered Result</button>
+<button type="button" id="generate-output">Generate GPT Text</button>
+</div>
+<label for="alignment-report" style="margin-top:16px;">Alignment Diagnosis / Recommendations</label>
+<textarea id="alignment-report" class="output-box" style="min-height:260px;" placeholder="Click Diagnose Current Alignment to score each selected pillar against the Primary Archetype. Core fields should score high; wildcard fields may intentionally create tension."></textarea>
+<div class="helper">Recommended workflow: choose or randomize a Primary Archetype → click Diagnose Current Alignment → Apply Alignment Mode if core fields are weak → Apply Tension Source if the concept feels too predictable → Generate GPT Text.</div>
+</div>
+
+<div class="note"><strong>Rule of thumb:</strong> keep the player promise obvious, then make the person or presentation surprising. The player should instantly understand what they do, but still want to know who they are.</div>
+</section>
+<section class="section">
+<h2>5. Director Card</h2>
+<p>Use this section as the fast summary you can copy into a deck, doc, or director review. The JavaScript can draft starter language from your selected traits.</p>
+<div class="brief"><div class="brief-grid">
+<div><label for="character-name">Character Name</label><input id="character-name" type="text" placeholder="Example: Vesper" /></div>
+<div><label for="working-title">Working Title / Class Nickname</label><input id="working-title" type="text" placeholder="Example: The Signal Warden" /></div>
+<div class="full"><label for="one-sentence-fantasy">One-Sentence Fantasy</label><textarea id="one-sentence-fantasy" placeholder="Example: A holy war-machine that absorbs punishment meant for allies and grows into a walking fortress as battle continues."></textarea><div class="helper">Template: A [fantasy] who uses [hook] to provide [function], escalating through [growth].</div></div>
+<div><label for="player-appeal">Player Appeal</label><textarea id="player-appeal" placeholder="Describe why players love this hero using the primary and secondary archetypes."></textarea></div>
+<div><label for="alignment-summary">Alignment / Tension Summary</label><textarea id="alignment-summary" placeholder="Example: Core gameplay is fully aligned with Protective Anchor, but the character avoids being one-note through a pride-driven motivation and mirror-based visual identity."></textarea><div class="helper">Use the Alignment Tuning section to explain where the concept is intentionally expected or surprising.</div></div>
+<div><label for="gameplay-summary">Gameplay Summary</label><textarea id="gameplay-summary" placeholder="Describe the loop: what the player tries to do, what good play looks like, and what enemies must respect."></textarea></div>
+</div></div>
+</section>
+<section class="section">
+<h2>6. Copy / Paste Output for GPT</h2>
+<p>Generate a clean text package of your current selections. Paste it into GPT and ask for a complete hero-shooter character brief.</p>
+<div class="brief">
+<label for="gpt-output">Generated Selection Text</label>
+<textarea id="gpt-output" class="output-box" placeholder="Click Generate GPT Text to compile your selections here."></textarea>
+<div class="actions">
+<button type="button" id="generate-output-bottom">Generate GPT Text</button>
+<button type="button" id="copy-output" class="secondary">Copy Text</button>
+</div>
+<div class="helper" id="copy-status" aria-live="polite">Nothing copied yet.</div>
+</div>
+</section>
+
+<div class="note"><strong>Interactive note:</strong> this file uses local JavaScript only for randomizing dropdowns, applying alignment passes, and generating copy/paste text. It does not load external data.</div>
+</div></main>
+
+<script>
+(function () {
+  var fields = {
+    primary: 'primary-archetype',
+    secondary: 'secondary-archetype',
+    combat: 'combat-fantasy',
+    role: 'battlefield-role',
+    mechanic: 'signature-mechanic',
+    escalation: 'escalation-fantasy',
+    motivation: 'motivation',
+    flaw: 'character-flaw',
+    team: 'team-relationship',
+    motif: 'visual-motif',
+    source: 'source-of-power',
+    alignment: 'alignment-mode',
+    tension: 'tension-source',
+    oneNote: 'one-note-check',
+    name: 'character-name',
+    title: 'working-title',
+    oneSentence: 'one-sentence-fantasy',
+    appeal: 'player-appeal',
+    alignmentSummary: 'alignment-summary',
+    gameplay: 'gameplay-summary',
+    report: 'alignment-report'
+  };
+
+  var labels = {
+    primary: 'Primary Archetype', secondary: 'Secondary Archetype', combat: 'Combat Fantasy', role: 'Battlefield Role', mechanic: 'Signature Mechanic', escalation: 'Escalation Fantasy',
+    motivation: 'Motivation', flaw: 'Character Flaw', team: 'Relationship to Team', motif: 'Visual Motif', source: 'Source of Power', alignment: 'Alignment Mode', tension: 'Primary Tension Source', oneNote: 'One-Note Check'
+  };
+
+  var fieldGroups = {
+    core: ['combat','role','mechanic'],
+    supporting: ['secondary','escalation','motivation'],
+    wildcard: ['flaw','team','motif','source'],
+    allTraits: ['primary','secondary','combat','role','mechanic','escalation','motivation','flaw','team','motif','source']
+  };
+
+  var archetypeProfiles = {
+    'Dive Skirmisher': ['mobility','speed','flank','duel','aggression','outplay','risk','solo','precision','escape','freedom','mastery'],
+    'Protective Anchor': ['protect','defense','tank','stability','team','sustain','guardian','recovery','duty','reliable','frontline','rescue'],
+    'Tactical Commander': ['strategy','command','team','tempo','control','coordination','information','formation','order','leadership','resources'],
+    'Trickster Infiltrator': ['stealth','deception','sabotage','flank','disruption','misdirection','information','escape','chaos','solo','psychological'],
+    'Battlefield Engineer': ['construct','setup','territory','control','resources','technology','builder','zone','preparation','infrastructure','objective'],
+    'Precision Eliminator': ['precision','pick','range','aim','assassin','execution','patience','burst','duel','hunter','damage'],
+    'Area Controller': ['zone','control','denial','terrain','space','objective','slow','pressure','route','crowd','positioning'],
+    'Sustain Savior': ['healing','support','rescue','recovery','team','sustain','protection','caretaker','stability','clutch','compassion'],
+    'Disruptive Bruiser': ['brawl','frontline','disruption','pressure','durable','aggression','crowd','formation','close','retaliation','threat'],
+    'Scaling Powerhouse': ['scaling','risk','power','momentum','snowball','late','growth','damage','dominance','resource','burst'],
+    'Information Hunter': ['information','recon','tracking','prediction','hunter','vision','mark','target','map','stealth','precision'],
+    'Expressive Wildcard': ['chaos','creative','unpredictable','experimental','adaptive','trick','style','improvisation','risk','utility','rulebreak']
+  };
+
+  var tagRules = [
+    ['mobility', ['mobile','speed','fast','movement','reposition','escape','route','jump','dive','flank','evasive','raider','racing']],
+    ['flank', ['flank','backline','infiltrator','silent','ambusher','saboteur','stealth','concealing','hidden','camouflage']],
+    ['duel', ['duelist','duel','solo','outplay','skirmish','specialist','prodigy']],
+    ['aggression', ['aggressor','aggressive','brutal','enforcer','initiator','vanguard','pressure','brawler','menace','pursuer','fearless']],
+    ['precision', ['precision','precise','marksman','long-range','executioner','timing','aim','specialist','hunter','calculated','target','marking']],
+    ['protect', ['protect','protection','guardian','shield','anchor','defensive','fortress','sentinel','rescue','safe zone','ally protection','saves','caretaker','backbone']],
+    ['tank', ['tank','frontline','durable','fortification','stone','armor','exosuit','fortress','payload','space creation','space stabilization']],
+    ['defense', ['defense','defensive','stabilization','hold','safe','denial','suppression','flank protection','objective defense','counterattack']],
+    ['sustain', ['sustain','healing','recovery','revive','medical','medic','mercy','stabilization','support','health','preservation']],
+    ['support', ['support','ally','team','linking','sharing','amplification','proximity','caretaker','teacher','mentor','commander','leader']],
+    ['command', ['commander','command','formation','order','doctrine','authority','leader','strategist','organizer','second-in-command','tactical']],
+    ['strategy', ['strategy','strategic','tactical','calculated','planning','preparation','tempo','discipline','operator','doctrine','big-picture']],
+    ['control', ['control','controller','manipulator','zone','denial','terrain','sightline','crowd','space','route','locking','objective','rules']],
+    ['construct', ['construct','building','structures','infrastructure','deploying','engineering','engineer','drone','autonomous','fabric','prototype','machinery']],
+    ['territory', ['territory','area','zone','map control','objective','payload','routes','ground','terrain','overgrowth','roots','fortress architecture']],
+    ['deception', ['decoy','mirrors','duplication','mask','hidden','trick','misdirection','theater','performance','hologram','projection','identity']],
+    ['sabotage', ['sabotage','disrupt','interrupt','deny','denial','weakening','anti-','resource denial','vision denial','concealing','black-market']],
+    ['information', ['information','recon','vision','revealing','signals','radio','prediction','future','tracking','hunter','map','augmented perception','neural interface']],
+    ['brawl', ['brawl','bruiser','close-quarters','frontliner','enforcer','retaliation','outnumbered','cornered','heavy weapons']],
+    ['scaling', ['scaling','snowball','momentum','grows','stronger','accumulates','late','final state','powerful','escalating','building power','stored']],
+    ['risk', ['risk','high-risk','trading health','sacrificing','dangerous','bold','reckless','addiction to risk','burns bright']],
+    ['chaos', ['chaos','chaotic','wildcard','unpredictable','experimental','improvised','rule','distortion','volatile','mischievous']],
+    ['technology', ['technology','cybernetic','circuitry','data','prototype','nanomachine','hardware','drone','exosuit','light-bending','sound-based','remote command','corporate']],
+    ['bio', ['biological','bio','mutation','symbiotic','organism','genetic','grafts','insects','plants','roots','medical','organ']],
+    ['spiritual', ['spiritual','sacred','faith','divine','angelic','religious','monastic','occult','ancestral','tradition']],
+    ['cosmic', ['alien','dimensional','stars','constellations','gravity','orbit','time','light','crystals','rare mineral']],
+    ['duty', ['duty','responsibility','service','loyalty','honor','obligation','protector','guardian']],
+    ['freedom', ['freedom','independence','liberation','escape','rebellion','defiance','adventure']],
+    ['power', ['power','dominance','ambition','control','recognition','pride','vindication','legacy']],
+    ['redemption', ['redemption','atonement','guilt','shame','reconciliation','restoration','renewal']],
+    ['curiosity', ['discovery','curiosity','knowledge','truth','exposure','wonder','progress']],
+    ['social-tension', ['reluctant','rival','antagonist','detached','secretive','outsider','rebellious','blunt','mistrust','paranoia','isolation']]
+  ];
+
+  var wildcardMotifs = ['Mirrors and duplication','Theater and performance','Deep sea forms','Dreamlike distortion','Paper, ink, and calligraphy','Festival or parade colors','Ancient ruins','Prisms and color separation','Bones and fossils','Smoke signals','Neon nightlife','Corporate minimalism'];
+  var wildcardSources = ['Dimensional anomaly','Symbiotic organism','Occult practice','Memory transfer','Light-bending equipment','Forbidden research','Rare mineral catalyst','Virtual intelligence','Alien influence','Time-distortion effects','Collective network','Bio-mechanical grafts'];
+
+  function el(id) { return document.getElementById(id); }
+  function setStatus(text) { var s = el('generator-status'); if (s) s.textContent = text; }
+  function cleanArchetype(text) { return (text || '').split('—')[0].trim(); }
+  function archetypeKey() { return cleanArchetype(getValue('primary')); }
+  function randomItem(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+  function getValue(key) {
+    var node = el(fields[key]);
+    if (!node) return '';
+    if (node.tagName === 'SELECT') return node.selectedIndex > 0 ? node.options[node.selectedIndex].text : '';
+    return node.value || '';
+  }
+  function selectValue(key, value) {
+    var node = el(fields[key]); if (!node) return false;
+    var needle = String(value).toLowerCase();
+    for (var i = 0; i < node.options.length; i++) {
+      var opt = node.options[i].text;
+      if (opt === value || opt.toLowerCase().indexOf(needle) === 0 || needle.indexOf(opt.toLowerCase()) === 0) { node.selectedIndex = i; return true; }
+    }
+    return false;
+  }
+  function optionsFor(key) {
+    var node = el(fields[key]); if (!node || node.tagName !== 'SELECT') return [];
+    var out = [];
+    for (var i = 1; i < node.options.length; i++) out.push(node.options[i].text);
+    return out;
+  }
+  function rollSelect(key) { var opts = optionsFor(key); if (opts.length) selectValue(key, randomItem(opts)); }
+  function rollGroup(keys) { keys.forEach(rollSelect); }
+
+  function inferTags(text) {
+    var lower = String(text || '').toLowerCase();
+    var tags = [];
+    Object.keys(archetypeProfiles).forEach(function(name){ if (lower.indexOf(name.toLowerCase()) === 0) tags = tags.concat(archetypeProfiles[name]); });
+    tagRules.forEach(function(rule){
+      var tag = rule[0];
+      var words = rule[1];
+      for (var i=0; i<words.length; i++) { if (lower.indexOf(words[i]) !== -1) { tags.push(tag); break; } }
+    });
+    var unique = [];
+    tags.forEach(function(t){ if (unique.indexOf(t) === -1) unique.push(t); });
+    return unique;
+  }
+  function overlapScore(traitTags, profileTags) {
+    if (!traitTags.length || !profileTags.length) return 0;
+    var hits = 0;
+    traitTags.forEach(function(t){ if (profileTags.indexOf(t) !== -1) hits += 1; });
+    return hits / Math.max(3, Math.min(profileTags.length, 8));
+  }
+  function scoreOption(key, optionText, archetypeName) {
+    var profile = archetypeProfiles[archetypeName] || [];
+    var tags = inferTags(optionText);
+    var score = overlapScore(tags, profile);
+    if (key === 'secondary' && cleanArchetype(optionText) === archetypeName) score = 1;
+    if (key === 'primary' && cleanArchetype(optionText) === archetypeName) score = 1;
+    if (fieldGroups.core.indexOf(key) !== -1) score *= 1.15;
+    if (key === 'motif' || key === 'source') score *= 0.9;
+    return Math.min(1, score);
+  }
+  function classifyScore(key, score) {
+    var isCore = fieldGroups.core.indexOf(key) !== -1;
+    var isSupporting = fieldGroups.supporting.indexOf(key) !== -1;
+    if (isCore) {
+      if (score >= 0.45) return 'Strongly Aligned';
+      if (score >= 0.25) return 'Usable but Soft';
+      return 'Conflicting / Needs Review';
+    }
+    if (isSupporting) {
+      if (score >= 0.40) return 'Strongly Aligned';
+      if (score >= 0.20) return 'Supporting';
+      if (score >= 0.08) return 'Intentional Tension';
+      return 'Low Alignment';
+    }
+    if (score >= 0.40) return 'Aligned, Possibly Predictable';
+    if (score >= 0.18) return 'Good Wildcard Tension';
+    if (score >= 0.05) return 'Strong Wildcard Tension';
+    return 'Disconnected / Needs Justification';
+  }
+  function pickByScore(key, target) {
+    var arch = archetypeKey();
+    var opts = optionsFor(key);
+    if (!arch || !opts.length) { rollSelect(key); return; }
+    var scored = opts.map(function(o){ return {text:o, score:scoreOption(key,o,arch)}; });
+    scored.sort(function(a,b){ return b.score - a.score; });
+    var pool;
+    if (target === 'aligned') pool = scored.filter(function(x){ return x.score >= 0.40; });
+    else if (target === 'supporting') pool = scored.filter(function(x){ return x.score >= 0.18 && x.score < 0.55; });
+    else if (target === 'tension') pool = scored.filter(function(x){ return x.score >= 0.04 && x.score < 0.22; });
+    else if (target === 'distant') pool = scored.filter(function(x){ return x.score < 0.12; });
+    else pool = scored;
+    if (!pool.length) pool = scored.slice(0, Math.max(1, Math.ceil(scored.length / 3)));
+    selectValue(key, randomItem(pool).text);
+  }
+  function ensurePrimary() { if (!getValue('primary')) rollSelect('primary'); }
+  function chooseDifferentSecondary(target) {
+    var arch = archetypeKey();
+    var opts = optionsFor('secondary').filter(function(o){ return cleanArchetype(o) !== arch; });
+    if (!opts.length) return;
+    if (target === 'tension') {
+      var scored = opts.map(function(o){ return {text:o, score:scoreOption('secondary',o,arch)}; }).sort(function(a,b){ return a.score - b.score; });
+      selectValue('secondary', randomItem(scored.slice(0, Math.max(1, Math.ceil(scored.length/2)))).text);
+    } else selectValue('secondary', randomItem(opts));
+  }
+
+  function diagnoseAlignment() {
+    ensurePrimary();
+    var arch = archetypeKey();
+    var lines = [];
+    lines.push('PRIMARY ARCHETYPE: ' + (arch || '[not selected]'));
+    lines.push('Method: each selected trait is tagged by keywords, compared against the Primary Archetype tag profile, then classified by tier. This is a design-assist score, not a final creative judgment.');
+    lines.push('');
+    var weakCore = [];
+    var predictableWildcards = [];
+    var disconnected = [];
+    ['combat','role','mechanic','escalation','motivation','flaw','team','motif','source'].forEach(function(key){
+      var val = getValue(key);
+      if (!val) { lines.push(labels[key] + ': [not selected]'); return; }
+      var tags = inferTags(val);
+      var score = scoreOption(key, val, arch);
+      var cls = classifyScore(key, score);
+      lines.push(labels[key] + ': ' + val);
+      lines.push('  Score: ' + Math.round(score * 100) + '% — ' + cls);
+      lines.push('  Tags: ' + (tags.length ? tags.join(', ') : 'none detected'));
+      if (fieldGroups.core.indexOf(key) !== -1 && score < 0.25) weakCore.push(labels[key]);
+      if (fieldGroups.wildcard.indexOf(key) !== -1 && score >= 0.40) predictableWildcards.push(labels[key]);
+      if (fieldGroups.wildcard.indexOf(key) !== -1 && score < 0.05) disconnected.push(labels[key]);
+    });
+    lines.push('');
+    lines.push('RECOMMENDATIONS');
+    if (weakCore.length) lines.push('- Realign core fields first: ' + weakCore.join(', ') + '. Gameplay promise is currently muddy.');
+    else lines.push('- Core gameplay reads aligned enough for a clear player promise.');
+    if (predictableWildcards.length) lines.push('- Consider adding controlled tension in: ' + predictableWildcards.join(', ') + '. These are very aligned and may feel expected.');
+    if (disconnected.length) lines.push('- Add explanation or reroll: ' + disconnected.join(', ') + '. These currently read disconnected rather than intentionally tense.');
+    if (!predictableWildcards.length && !disconnected.length) lines.push('- Wildcard fields are creating healthy tension without obviously breaking the concept.');
+    var report = el(fields.report); if (report) report.value = lines.join('\n');
+    setStatus('Alignment diagnosis complete.');
+    return lines.join('\n');
+  }
+
+  function applyCoreAligned() {
+    ensurePrimary();
+    ['combat','role','mechanic'].forEach(function(k){ pickByScore(k, 'aligned'); });
+  }
+  function applyAlignmentMode() {
+    ensurePrimary();
+    var mode = getValue('alignment');
+    if (!mode) { selectValue('alignment', 'Heroic Twist'); mode = getValue('alignment'); }
+    applyCoreAligned();
+    if (mode.indexOf('Clean Read') === 0) {
+      pickByScore('secondary','aligned'); pickByScore('escalation','aligned'); pickByScore('motivation','aligned');
+      ['flaw','team','motif','source'].forEach(function(k){ pickByScore(k, 'supporting'); });
+      selectValue('oneNote', 'Clear but slightly familiar');
+    } else if (mode.indexOf('Heroic Twist') === 0) {
+      pickByScore('secondary','supporting'); pickByScore('escalation','aligned'); pickByScore('motivation','supporting'); pickByScore('flaw','tension'); pickByScore('team','supporting'); pickByScore('motif','supporting'); pickByScore('source','supporting');
+      selectValue('tension', 'Flaw complicates the heroic fantasy'); selectValue('oneNote', 'Strong balance');
+    } else if (mode.indexOf('Visual Twist') === 0) {
+      pickByScore('secondary','supporting'); pickByScore('escalation','aligned'); pickByScore('motivation','aligned'); pickByScore('flaw','supporting'); pickByScore('team','supporting'); pickByScore('motif','tension'); pickByScore('source','tension');
+      selectValue('tension', 'Visual motif contrasts with gameplay role'); selectValue('oneNote', 'Strong balance');
+    } else if (mode.indexOf('Contradiction Engine') === 0) {
+      chooseDifferentSecondary('tension'); pickByScore('escalation','aligned'); pickByScore('motivation','tension'); pickByScore('flaw','tension'); pickByScore('team','tension'); pickByScore('motif','supporting'); pickByScore('source','supporting');
+      selectValue('tension', 'Motivation conflicts with archetype expectation'); selectValue('oneNote', 'Strong balance');
+    } else if (mode.indexOf('Roster Wildcard') === 0) {
+      chooseDifferentSecondary('tension'); pickByScore('escalation','supporting'); pickByScore('motivation','supporting'); pickByScore('flaw','tension'); pickByScore('team','tension'); pickByScore('motif','tension'); pickByScore('source','tension');
+      selectValue('tension', 'Source of power reframes the fantasy'); selectValue('oneNote', 'Strong balance');
+    }
+    draftDirectorFields(true);
+    diagnoseAlignment();
+    setStatus('Applied alignment mode using tag scores: ' + mode);
+  }
+  function applyTensionSource() {
+    ensurePrimary();
+    var tension = getValue('tension');
+    if (!tension) { selectValue('tension', 'Visual motif contrasts with gameplay role'); tension = getValue('tension'); }
+    if (tension.indexOf('Motivation conflicts') === 0) pickByScore('motivation', 'tension');
+    else if (tension.indexOf('Flaw complicates') === 0) pickByScore('flaw', 'tension');
+    else if (tension.indexOf('Team relationship') === 0) pickByScore('team', 'tension');
+    else if (tension.indexOf('Visual motif') === 0) pickByScore('motif', 'tension');
+    else if (tension.indexOf('Source of power') === 0) pickByScore('source', 'tension');
+    else if (tension.indexOf('Secondary archetype') === 0) chooseDifferentSecondary('tension');
+    selectValue('oneNote', 'Strong balance');
+    draftDirectorFields(true); diagnoseAlignment();
+    setStatus('Applied specific tension source using tag scores: ' + tension);
+  }
+  function fixOneNote() {
+    ensurePrimary();
+    var check = getValue('oneNote');
+    if (!check) { diagnoseAlignment(); return; }
+    if (check.indexOf('Too predictable') === 0 || check.indexOf('Clear but slightly familiar') === 0) {
+      var choices = ['Flaw complicates the heroic fantasy','Visual motif contrasts with gameplay role','Source of power reframes the fantasy','Motivation conflicts with archetype expectation'];
+      selectValue('tension', randomItem(choices)); applyTensionSource();
+    } else if (check.indexOf('Too scattered') === 0 || check.indexOf('Too strange') === 0) {
+      applyCoreAligned(); pickByScore('escalation','aligned'); selectValue('alignment', 'Heroic Twist'); selectValue('oneNote', 'Strong balance'); draftDirectorFields(true); diagnoseAlignment();
+      setStatus('Realigned core gameplay fields using tag scores.');
+    } else { diagnoseAlignment(); setStatus('Balance check looks acceptable.'); }
+  }
+  function randomizeAll() {
+    rollSelect('primary');
+    if (!getValue('alignment')) selectValue('alignment', randomItem(['Heroic Twist — core aligned, personality has tension','Visual Twist — core aligned, motif/source are unexpected','Contradiction Engine — clear gameplay, provocative identity tension','Roster Wildcard — familiar archetype, unusual execution']));
+    if (!getValue('tension')) selectValue('tension', randomItem(['Flaw complicates the heroic fantasy','Visual motif contrasts with gameplay role','Source of power reframes the fantasy','Secondary archetype pulls them in a different direction']));
+    applyAlignmentMode(); applyTensionSource(); generateOutput();
+    setStatus('Randomized full character using archetype-aware alignment scores.');
+  }
+  function draftDirectorFields(overwrite) {
+    var fantasy = getValue('combat') || '[combat fantasy]';
+    var mechanic = getValue('mechanic') || '[signature mechanic]';
+    var role = getValue('role') || '[battlefield role]';
+    var escalation = getValue('escalation') || '[escalation fantasy]';
+    var primary = getValue('primary') || '[primary archetype]';
+    var secondary = getValue('secondary') || '[secondary archetype]';
+    var motivation = getValue('motivation') || '[motivation]';
+    var flaw = getValue('flaw') || '[flaw]';
+    var motif = getValue('motif') || '[visual motif]';
+    var source = getValue('source') || '[source of power]';
+    var oneSentence = el(fields.oneSentence), appeal = el(fields.appeal), align = el(fields.alignmentSummary), gameplay = el(fields.gameplay);
+    if (oneSentence && (overwrite || !oneSentence.value)) oneSentence.value = 'A ' + fantasy.toLowerCase() + ' who uses ' + mechanic.toLowerCase() + ' to provide ' + role.toLowerCase() + ', escalating through ' + escalation.toLowerCase() + '.';
+    if (appeal && (overwrite || !appeal.value)) appeal.value = 'Primary appeal: ' + primary + '. Secondary appeal: ' + secondary + '. The core player promise should be instantly readable, while the supporting traits add depth.';
+    if (align && (overwrite || !align.value)) align.value = 'Core gameplay is aligned around ' + primary + '. Controlled tension comes from ' + (getValue('tension') || 'one supporting or wildcard pillar') + ', especially through ' + motivation.toLowerCase() + ', ' + flaw.toLowerCase() + ', ' + motif.toLowerCase() + ', and ' + source.toLowerCase() + '.';
+    if (gameplay && (overwrite || !gameplay.value)) gameplay.value = 'The player loop centers on using ' + mechanic.toLowerCase() + ' to create ' + role.toLowerCase() + '. Good play should feel readable, repeatable, and expressive while still leaving counterplay for enemies.';
+  }
+  function generateOutput() {
+    draftDirectorFields(false);
+    var report = diagnoseAlignment();
+    var lines = [];
+    lines.push('Create a launch-roster-quality hero shooter character brief from the following selections.');
+    lines.push('');
+    lines.push('DESIGN INTENT');
+    lines.push('- The archetypes define why players choose this hero.');
+    lines.push('- The core gameplay pillars should stay highly aligned and easy to understand.');
+    lines.push('- The supporting and wildcard pillars may create controlled tension so the character does not feel one-note.');
+    lines.push('');
+    lines.push('PLAYER MOTIVATION');
+    ['primary','secondary'].forEach(function(k){ lines.push('- ' + labels[k] + ': ' + (getValue(k) || '[not selected]')); });
+    lines.push('');
+    lines.push('CORE GAMEPLAY PILLARS');
+    ['combat','role','mechanic','escalation'].forEach(function(k){ lines.push('- ' + labels[k] + ': ' + (getValue(k) || '[not selected]')); });
+    lines.push('');
+    lines.push('CHARACTER IDENTITY PILLARS');
+    ['motivation','flaw','team','motif','source'].forEach(function(k){ lines.push('- ' + labels[k] + ': ' + (getValue(k) || '[not selected]')); });
+    lines.push('');
+    lines.push('ALIGNMENT TUNING');
+    ['alignment','tension','oneNote'].forEach(function(k){ lines.push('- ' + labels[k] + ': ' + (getValue(k) || '[not selected]')); });
+    lines.push('');
+    lines.push('ALIGNMENT DIAGNOSIS');
+    lines.push(report || '[no diagnosis generated]');
+    lines.push('');
+    lines.push('DIRECTOR CARD NOTES');
+    lines.push('- Character Name: ' + (getValue('name') || '[not named yet]'));
+    lines.push('- Working Title: ' + (getValue('title') || '[not titled yet]'));
+    lines.push('- One-Sentence Fantasy: ' + (getValue('oneSentence') || '[not written yet]'));
+    lines.push('- Player Appeal: ' + (getValue('appeal') || '[not written yet]'));
+    lines.push('- Alignment / Tension Summary: ' + (getValue('alignmentSummary') || '[not written yet]'));
+    lines.push('- Gameplay Summary: ' + (getValue('gameplay') || '[not written yet]'));
+    lines.push('');
+    lines.push('REQUESTED OUTPUT');
+    lines.push('1. Character Name');
+    lines.push('2. Primary and Secondary Archetype Analysis');
+    lines.push('3. One-Sentence Fantasy');
+    lines.push('4. 2–4 paragraph Character Summary');
+    lines.push('5. Visual Design');
+    lines.push('6. Gameplay Fantasy');
+    lines.push('7. Passive, Primary, Secondary, Movement, and Ultimate Ability Concepts');
+    lines.push('8. Personality');
+    lines.push('9. Narrative Hooks');
+    lines.push('10. Roster Role and why this hero deserves a slot');
+    lines.push('');
+    lines.push('Important: Keep the player promise clear. Make the person or presentation surprising only where the alignment tuning indicates controlled tension.');
+    var out = el('gpt-output'); if (out) out.value = lines.join('\n');
+    setStatus('Generated GPT copy/paste text with alignment diagnosis.');
+  }
+  function copyOutput() {
+    generateOutput();
+    var out = el('gpt-output'), status = el('copy-status'); if (!out) return;
+    out.focus(); out.select();
+    function done(){ if (status) status.textContent = 'Copied generated text to clipboard.'; }
+    if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(out.value).then(done).catch(function(){ document.execCommand('copy'); done(); });
+    else { document.execCommand('copy'); done(); }
+  }
+  function resetAll() {
+    Object.keys(fields).forEach(function(k){ var node = el(fields[k]); if (!node) return; if (node.tagName === 'SELECT') node.selectedIndex = 0; else node.value = ''; });
+    setStatus('Reset all fields.');
+  }
+  function bind(id, fn) { var node = el(id); if (node) node.addEventListener('click', fn); }
+  document.addEventListener('DOMContentLoaded', function(){
+    bind('randomize-all', randomizeAll);
+    bind('randomize-core', function(){ ensurePrimary(); applyCoreAligned(); pickByScore('escalation','aligned'); draftDirectorFields(true); diagnoseAlignment(); generateOutput(); setStatus('Randomized core fields using selected archetype.'); });
+    bind('randomize-supporting', function(){ ensurePrimary(); ['secondary','escalation','motivation'].forEach(function(k){ pickByScore(k,'supporting'); }); draftDirectorFields(true); diagnoseAlignment(); generateOutput(); setStatus('Randomized supporting fields with medium alignment.'); });
+    bind('randomize-wildcards', function(){ ensurePrimary(); ['flaw','team','motif','source'].forEach(function(k){ pickByScore(k,'tension'); }); draftDirectorFields(true); diagnoseAlignment(); generateOutput(); setStatus('Randomized wildcard fields as controlled tension.'); });
+    bind('reset-all', resetAll);
+    bind('diagnose-alignment', diagnoseAlignment);
+    bind('apply-alignment', function(){ applyAlignmentMode(); generateOutput(); });
+    bind('apply-tension', function(){ applyTensionSource(); generateOutput(); });
+    bind('fix-one-note', function(){ fixOneNote(); generateOutput(); });
+    bind('generate-output', generateOutput);
+    bind('generate-output-bottom', generateOutput);
+    bind('copy-output', copyOutput);
+  });
+})();
+</script>
+
+</body>
+</html>
