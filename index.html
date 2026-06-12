@@ -1,31 +1,2116 @@
-<!DOCTYPE html>
+<!--
+Cleaned Top-30 trait counts: player-fantasy=60, growth-pattern=55, battlefield-function=32, signature-system=59, core-drive=60, social-role=43, identity=60
+--><!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hero Shooter Character Generator — 7 Pillars</title>
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hero Shooter Character Generator — Clean Top-30 Traits</title>
+<style>
     :root{--bg:#10131a;--panel:#181d27;--panel2:#202635;--panel3:#111722;--text:#f4f6fb;--muted:#aeb7c8;--line:#31394a;--accent:#9bd7ff;--accent2:#d6b4ff;--good:#9ff0c3;--warn:#ffd18a;--field:#0f131b}*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}header{padding:56px 22px 32px;background:linear-gradient(135deg,#151b28,#1e2637 55%,#241b35);border-bottom:1px solid var(--line)}.wrap{max-width:1180px;margin:0 auto}h1{margin:0 0 12px;font-size:clamp(2rem,5vw,4rem);line-height:1.05;letter-spacing:-.04em}h2{margin:0 0 12px;font-size:1.55rem;letter-spacing:-.02em}p{margin:0 0 14px;color:var(--muted)}.intro{max-width:880px;font-size:1.08rem}main{padding:28px 22px 64px}.section{margin-top:28px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}.card,.brief,.toolbox{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.18)}.card p{font-size:.92rem;min-height:42px}label{display:block;font-weight:700;margin-bottom:8px}select,textarea,input[type=text]{width:100%;border:1px solid var(--line);border-radius:12px;background:var(--field);color:var(--text);padding:12px;font-size:1rem}input[type=text]{margin-top:10px}select:focus,textarea:focus,input[type=text]:focus{outline:2px solid var(--accent);outline-offset:2px}textarea{min-height:170px;resize:vertical}.large-textarea{min-height:390px}.pill{display:inline-block;margin:0 8px 8px 0;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);background:rgba(255,255,255,.03);font-size:.86rem}.badge{display:inline-block;margin:0 0 8px;padding:4px 8px;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase}.badge.archetype{background:rgba(214,180,255,.16);color:var(--accent2);border:1px solid rgba(214,180,255,.28)}.badge.core{background:rgba(155,215,255,.12);color:var(--accent);border:1px solid rgba(155,215,255,.28)}.badge.character{background:rgba(159,240,195,.1);color:var(--good);border:1px solid rgba(159,240,195,.24)}.badge.tension{background:rgba(255,209,138,.1);color:var(--warn);border:1px solid rgba(255,209,138,.24)}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}button{border:1px solid rgba(155,215,255,.35);border-radius:12px;background:rgba(155,215,255,.12);color:var(--text);padding:10px 14px;font-size:.95rem;font-weight:700;cursor:pointer}button:hover{background:rgba(155,215,255,.2)}button.secondary{border-color:rgba(214,180,255,.35);background:rgba(214,180,255,.11)}button.secondary:hover{background:rgba(214,180,255,.2)}button.warning{border-color:rgba(255,209,138,.38);background:rgba(255,209,138,.11)}button.warning:hover{background:rgba(255,209,138,.19)}.toolbox{background:var(--panel2)}.status-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px}.status-box{background:var(--panel3);border:1px solid var(--line);border-radius:14px;padding:14px}.status-box strong{display:block;margin-bottom:4px}.score{font-size:2rem;font-weight:800;letter-spacing:-.04em;color:var(--accent)}.recommendations{margin-top:14px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel3);color:var(--muted);white-space:pre-wrap}.helper{font-size:.88rem;color:var(--muted);margin-top:6px}.brief-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.full{grid-column:1/-1}.print-note{color:var(--muted);font-size:.9rem;margin-top:12px}@media(max-width:980px){.grid,.status-grid,.brief-grid{grid-template-columns:1fr}.full{grid-column:auto}}@media print{body{background:white;color:black}header,main{padding:18px}.card,.brief,.toolbox,.status-box,.recommendations{box-shadow:none;border-color:#999;background:white}p,.helper,.print-note,.recommendations{color:#333}select,textarea,input[type=text]{color:black;background:white;border-color:#999}button{display:none}}
   </style>
 </head>
 <body>
-<header><div class="wrap"><h1>Hero Shooter Character Generator</h1><p class="intro">Choose one proven player-motivation archetype, then combine seven broad character pillars. Each pillar has a dropdown for speed and a custom field for ideas that are not listed.</p><div><span class="pill">1 Archetype</span><span class="pill">7 Pillars</span><span class="pill">Custom Overrides</span><span class="pill">Larger Option Pools</span><span class="pill">Coherence Tools</span><span class="pill">GPT-Ready Export</span></div></div></header>
+<header><div class="wrap"><h1>Hero Shooter Character Generator</h1><p class="intro">Choose a player archetype, then combine seven cleaned character pillars. The top-30 hero-shooter traits are preserved as simplified, non-redundant dropdown options.</p><div><span class="pill">1 Archetype</span><span class="pill">7 Pillars</span><span class="pill">Clean Top-30 Traits</span><span class="pill">Spreadsheet-Informed Coherence</span><span class="pill">Custom Overrides</span><span class="pill">GPT-Ready Export</span></div></div></header>
 <main><div class="wrap">
-<section class="section"><h2>Step 1 — Choose the Player Archetype</h2><p>The archetype is not a pillar. It is the player-facing promise: why someone would choose, learn, and main this hero.</p><div class="grid"><div class="card"><span class="badge archetype">Required</span><label for="archetype">Primary Archetype</label><p>Choose the core player motivation this character is designed to satisfy.</p><select id="archetype"><option selected value="">Choose an archetype</option><option value="Dive Skirmisher">Dive Skirmisher — speed, mastery, outplays</option><option value="Protective Anchor">Protective Anchor — protection, reliability, responsibility</option><option value="Tactical Commander">Tactical Commander — planning, coordination, strategy</option><option value="Duelist">Duelist — direct skill tests, confidence, execution</option><option value="Predator">Predator — tracking, isolation, execution</option><option value="Trickster">Trickster — deception, disruption, mind games</option><option value="Controller">Controller — territory, denial, battlefield influence</option><option value="Engineer">Engineer — systems, setup, infrastructure</option><option value="Evolutionist">Evolutionist — adaptation, growth, transformation</option><option value="Champion">Champion — heroics, presence, clutch moments</option><option value="Oracle">Oracle — information, prediction, awareness</option><option value="Juggernaut">Juggernaut — pressure, dominance, unstoppable momentum</option></select><input id="archetype-custom" type="text" placeholder="Custom archetype override, optional"/><div class="helper">Custom text overrides the dropdown in the export. Scoring works best with dropdown values.</div></div><div class="card"><span class="badge tension">Optional</span><label for="contradiction">Contradiction</label><p>One deliberate tension that prevents the character from feeling too obvious.</p><select id="contradiction"><option selected value="">No contradiction selected</option><option>Craves recognition</option><option>Fears leadership</option><option>Distrusts others</option><option>Refuses help</option><option>Cannot let go</option><option>Seeks control</option><option>Hides vulnerability</option><option>Desires approval</option><option>Avoids responsibility</option><option>Needs redemption</option><option>Obsesses over perfection</option><option>Fears failure</option><option>Protects others for selfish reasons</option><option>Believes the ends justify the means</option><option>Wants peace but creates conflict</option><option>Needs connection but pushes people away</option><option>Claims discipline but lives for chaos</option><option>Wants freedom but controls others</option><option>Seeks intimacy through rivalry</option><option>Feels safest in danger</option><option>Uses humor to avoid grief</option><option>Protects the team by keeping secrets</option><option>Believes weakness must be hidden</option><option>Cannot accept being ordinary</option><option>Sees allies as responsibilities, not peers</option><option>Wants to be trusted but manipulates others</option><option>Needs order but thrives in crisis</option><option>Wants forgiveness but repeats old mistakes</option><option>Rejects authority while needing structure</option><option>Hunts monsters while fearing becoming one</option><option>Wants truth but fears what it reveals</option><option>Seeks power to prevent harm</option><option>Wants to inspire but avoids the spotlight</option><option>Only feels valuable when useful</option><option>Protects freedom through control</option><option>Craves family but trusts no one</option></select><input id="contradiction-custom" type="text" placeholder="Custom contradiction, optional"/></div><div class="card"><span class="badge core">Generation Mode</span><label for="generation-mode">Randomization Style</label><p>Controls how aggressively randomization follows the chosen archetype.</p><select id="generation-mode"><option selected>Balanced</option><option>Highly Coherent</option><option>Layered with One Tension</option><option>Experimental</option></select><div class="actions"><button type="button" id="randomize-all">Randomize Character</button><button type="button" class="secondary" id="randomize-pillars">Randomize Pillars Only</button></div></div></div></section>
-<section class="section"><h2>Step 2 — Choose the 7 Pillars</h2><p>Pillar 1 has been split into Player Fantasy and Growth Pattern. Every pillar includes a manual override field.</p><div class="grid">
-<div class="card"><span class="badge core">Pillar 1</span><label for="player-fantasy">Player Fantasy</label><p>What the player feels like moment to moment.</p><select id="player-fantasy"><option selected value="">Choose a player fantasy</option><option>Guardian</option><option>Predator</option><option>Prophet</option><option>Commander</option><option>Trickster</option><option>Champion</option><option>Wanderer</option><option>Monster</option><option>Sentinel</option><option>Sovereign</option><option>Hunter</option><option>Engineer</option><option>Survivor</option><option>Avenger</option><option>Explorer</option><option>Visionary</option><option>Oracle</option><option>Vanguard</option><option>Warden</option><option>Shapeshifter</option><option>Exile</option><option>Rebel</option><option>Saint</option><option>Warlock</option><option>Beast</option><option>Architect</option><option>Phantom</option><option>Gladiator</option><option>Nomad</option><option>Juggernaut</option><option>Savior</option><option>Infiltrator</option><option>Alchemist</option><option>Marshal</option><option>Herald</option><option>Witch</option><option>Revenant</option><option>Pilgrim</option><option>Prodigy</option><option>Destroyer</option><option>Keeper</option><option>Seeker</option><option>Martyr</option><option>Icon</option><option>Shade</option><option>Paragon</option><option>Heretic</option><option>Behemoth</option><option>Artificer</option><option>Pathfinder</option><option>Nemesis</option><option>Catalyst</option><option>Bulwark</option><option>Rogue</option><option>Seer</option><option>Arbiter</option><option>Wraith</option><option>Paladin</option><option>Harbinger</option><option>Prodigal Heir</option><option>Living Weapon</option><option>Battle Mystic</option><option>Field Genius</option><option>Pack Leader</option></select><input id="player-fantasy-custom" type="text" placeholder="Custom player fantasy, optional"/></div>
-<div class="card"><span class="badge core">Pillar 2</span><label for="growth-pattern">Growth Pattern</label><p>How the fantasy escalates over the match, story, or mastery curve.</p><select id="growth-pattern"><option selected value="">Choose a growth pattern</option><option>Momentum</option><option>Evolution</option><option>Ascension</option><option>Expansion</option><option>Adaptation</option><option>Accumulation</option><option>Awareness</option><option>Transformation</option><option>Influence</option><option>Infrastructure</option><option>Synchronization</option><option>Awakening</option><option>Discovery</option><option>Territory</option><option>Escalating Risk</option><option>Rising Pressure</option><option>Unfolding Plan</option><option>Spreading Control</option><option>Deepening Bond</option><option>Growing Instability</option><option>Gathering Swarm</option><option>Mounting Confidence</option><option>Revealed Truth</option><option>Resource Bloom</option><option>Chain Reaction</option><option>Late Bloom</option><option>Stored Power</option><option>Rhythmic Peaks</option><option>Vengeful Surge</option><option>Protective Bloom</option><option>Shared Power</option><option>Predatory Focus</option><option>Pattern Recognition</option><option>System Completion</option><option>Critical Mass</option><option>Controlled Collapse</option><option>Unleashed Form</option><option>Expanding Network</option><option>Threat Amplification</option><option>Fortification</option><option>Territorial Bloom</option><option>Staged Revelation</option><option>Adaptive Armor</option><option>Spiritual Charge</option><option>Mechanical Upgrade</option><option>Emotional Breakthrough</option><option>Increasing Precision</option><option>Battlefield Awakening</option></select><input id="growth-pattern-custom" type="text" placeholder="Custom growth pattern, optional"/></div>
-<div class="card"><span class="badge core">Pillar 3</span><label for="battlefield-function">Battlefield Function</label><p>The broad outcome they create in the match. This is not a class label.</p><select id="battlefield-function"><option selected value="">Choose a battlefield function</option><option>Protection</option><option>Control</option><option>Elimination</option><option>Information</option><option>Disruption</option><option>Mobility</option><option>Territory</option><option>Coordination</option><option>Pressure</option><option>Attrition</option><option>Infrastructure</option><option>Recovery</option><option>Initiation</option><option>Denial</option><option>Rescue</option><option>Tempo</option><option>Isolation</option><option>Amplification</option><option>Suppression</option><option>Repositioning</option><option>Counterplay</option><option>Map Control</option><option>Objective Control</option><option>Route Control</option><option>Space Creation</option><option>Space Stabilization</option><option>Threat Projection</option><option>Team Sustain</option><option>Vision Control</option><option>Vision Denial</option><option>Backline Access</option><option>Frontline Pressure</option><option>Formation Breaking</option><option>Formation Holding</option><option>Resource Denial</option><option>Resource Generation</option><option>Cooldown Manipulation</option><option>Ally Enablement</option><option>Enemy Containment</option><option>Escape Control</option><option>Flank Security</option><option>Siege Support</option><option>Ambush Setup</option><option>Clutch Stabilization</option><option>Objective Conversion</option><option>Payload Escort</option><option>Line-of-Sight Control</option><option>Retreat Punishment</option></select><input id="battlefield-function-custom" type="text" placeholder="Custom battlefield function, optional"/></div>
-<div class="card"><span class="badge core">Pillar 4</span><label for="signature-system">Signature System</label><p>The memorable gameplay hook. Broad enough to support many ability kits.</p><select id="signature-system"><option selected value="">Choose a signature system</option><option>Teleportation</option><option>Prediction</option><option>Mutation</option><option>Cloning</option><option>Summoning</option><option>Transformation</option><option>Constructs</option><option>Possession</option><option>Time Distortion</option><option>Gravity Control</option><option>Resource Conversion</option><option>Territory Creation</option><option>Link Networks</option><option>Ability Theft</option><option>Adaptation</option><option>Manifestation</option><option>Replication</option><option>Synchronization</option><option>Momentum Storage</option><option>Damage Redirection</option><option>Future Echoes</option><option>Shared Senses</option><option>Terrain Shaping</option><option>Living Barriers</option><option>Signal Control</option><option>Weapon Morphing</option><option>Mark Consumption</option><option>Form Cycling</option><option>Zone Rewriting</option><option>Ally Bonding</option><option>Energy Harvesting</option><option>Threat Marking</option><option>Reactive Armor</option><option>Delayed Effects</option><option>Chain Triggers</option><option>Rule Inversion</option><option>Memory Playback</option><option>Remote Piloting</option><option>Drone Network</option><option>Bio-Symbiosis</option><option>Phase Shifting</option><option>Sound Manipulation</option><option>Light Refraction</option><option>Shadow Binding</option><option>Healing Conversion</option><option>Sacrifice Economy</option><option>Stance Switching</option><option>Rift Creation</option><option>Decoy Systems</option><option>Armor Growth</option><option>Swarm Command</option><option>Path Creation</option><option>Anchor Points</option><option>Battlefield Memory</option><option>Shared Cooldowns</option><option>Living Weapons</option><option>Pattern Locking</option><option>Enemy Mirroring</option><option>Proximity Fields</option><option>Objective Infusion</option></select><input id="signature-system-custom" type="text" placeholder="Custom signature system, optional"/></div>
-<div class="card"><span class="badge character">Pillar 5</span><label for="core-drive">Core Drive</label><p>Motivation fused with flaw. This creates built-in character tension.</p><select id="core-drive"><option selected value="">Choose a core drive</option><option>Duty → Self-Sacrifice</option><option>Discovery → Obsession</option><option>Freedom → Recklessness</option><option>Recognition → Pride</option><option>Justice → Fanaticism</option><option>Compassion → Martyrdom</option><option>Order → Control</option><option>Knowledge → Detachment</option><option>Loyalty → Blindness</option><option>Survival → Paranoia</option><option>Legacy → Hubris</option><option>Peace → Avoidance</option><option>Power → Corruption</option><option>Creation → Possessiveness</option><option>Faith → Zealotry</option><option>Progress → Ruthlessness</option><option>Redemption → Guilt</option><option>Protection → Overreach</option><option>Truth → Cruel Honesty</option><option>Belonging → Dependency</option><option>Mastery → Perfectionism</option><option>Rebellion → Distrust</option><option>Hope → Naivety</option><option>Security → Rigidity</option><option>Honor → Inflexibility</option><option>Vengeance → Tunnel Vision</option><option>Wonder → Escapism</option><option>Stability → Stagnation</option><option>Ambition → Exploitation</option><option>Devotion → Possessiveness</option><option>Responsibility → Control</option><option>Memory → Grief</option><option>Restoration → Denial</option><option>Community → Conformity</option><option>Independence → Isolation</option><option>Purpose → Fanaticism</option><option>Respect → Insecurity</option><option>Balance → Indecision</option><option>Mercy → Hesitation</option><option>Dominance → Cruelty</option><option>Curiosity → Boundary-Crossing</option><option>Service → Loss of Self</option><option>Vindication → Bitterness</option><option>Transformation → Self-Rejection</option><option>Preservation → Fear of Change</option><option>Influence → Manipulation</option><option>Competition → Envy</option><option>Atonement → Self-Punishment</option></select><input id="core-drive-custom" type="text" placeholder="Custom core drive, optional"/></div>
-<div class="card"><span class="badge character">Pillar 6</span><label for="social-role">Social Role</label><p>How the character relates to allies, banter, squad identity, and emotional texture.</p><select id="social-role"><option selected value="">Choose a social role</option><option>Leader</option><option>Protector</option><option>Advisor</option><option>Builder</option><option>Scout</option><option>Rival</option><option>Mentor</option><option>Caretaker</option><option>Champion</option><option>Outsider</option><option>Ghost</option><option>Wild Card</option><option>Negotiator</option><option>Loyalist</option><option>Revolutionary</option><option>Observer</option><option>Instigator</option><option>Field Medic</option><option>Second-in-Command</option><option>Truth-Teller</option><option>Bridge Between Factions</option><option>Reluctant Ally</option><option>Mission Professional</option><option>Morale Anchor</option><option>Big Sibling</option><option>Earnest Rookie</option><option>Cynical Veteran</option><option>Quiet Specialist</option><option>Team Mascot</option><option>Hardline Commander</option><option>Soft-Spoken Genius</option><option>Friendly Rival</option><option>Secret Keeper</option><option>Community Builder</option><option>Pragmatic Fixer</option><option>Emotional Anchor</option><option>Detached Professional</option><option>Protective Skeptic</option><option>Charismatic Rebel</option><option>Rules Lawyer</option><option>Pack Alpha</option><option>Lone Wolf</option><option>Confessor</option><option>Spiritual Guide</option><option>Tactical Teacher</option><option>Reluctant Protector</option><option>Comic Relief</option><option>Haunted Survivor</option><option>Ideological Challenger</option><option>Inspirational Icon</option><option>Quiet Loyalist</option><option>Dangerous Friend</option></select><input id="social-role-custom" type="text" placeholder="Custom social role, optional"/></div>
-<div class="card"><span class="badge character">Pillar 7</span><label for="identity">Identity</label><p>Visual motif plus source of power. This should imply shape language, VFX, lore, and ability logic.</p><select id="identity"><option selected value="">Choose an identity</option><option>Divine Blood</option><option>Living Scripture</option><option>Relic Technology</option><option>Shared Consciousness</option><option>Cosmic Corruption</option><option>Mutation</option><option>Bio-Alchemy</option><option>Ancient Covenant</option><option>Dream Architecture</option><option>Living Machines</option><option>Sacred Geometry</option><option>Living Constellations</option><option>Void Parasite</option><option>Elemental Core</option><option>Living Shadows</option><option>Temporal Artifacts</option><option>Soulcraft</option><option>Memory Fragments</option><option>Reality Fractures</option><option>Storm Relics</option><option>Bonecraft</option><option>Mirror Systems</option><option>Cathedral Machinery</option><option>Black-Market Augments</option><option>Symbiotic Armor</option><option>Neural Lattice</option><option>Solar Engine</option><option>Gravitic Relics</option><option>Hollow Crown</option><option>Signal Spirits</option><option>Crystal Biotech</option><option>Nomad Relics</option><option>Living Ink</option><option>Fungal Network</option><option>Iron Halo</option><option>Mechanical Wings</option><option>Oceanic Exoshell</option><option>Glass Seraphim</option><option>Burning Scripture</option><option>Swarm Chassis</option><option>Ritual Armor</option><option>Corporate Prototype</option><option>Salvage Engine</option><option>Forbidden Medicine</option><option>Weather-Control Rig</option><option>Prism Core</option><option>Monastic Circuitry</option><option>Battlefield Relics</option><option>Holographic Ghosts</option><option>Living Fortress</option><option>Bone Constellations</option><option>Memory Cathedral</option><option>Shadow Technology</option><option>Sunken God-Tech</option><option>Radioactive Bloom</option><option>Spirit Machinery</option><option>Clockwork Saints</option><option>Data Swarm</option><option>Volcanic Armor</option><option>Ancient Drone Choir</option></select><input id="identity-custom" type="text" placeholder="Custom identity, optional"/></div>
+<section class="section"><h2>Step 1 — Choose the Player Archetype</h2><p>The archetype is not a pillar. It is the player-facing promise: why someone would choose, learn, and main this hero.</p><div class="grid"><div class="card"><span class="badge archetype">Required</span><label for="archetype">Primary Archetype</label><p>Choose the core player motivation this character is designed to satisfy.</p><select id="archetype"><option selected="" value="">Choose an archetype</option><option value="Dive Skirmisher">Dive Skirmisher — speed, mastery, outplays</option><option value="Protective Anchor">Protective Anchor — protection, reliability, responsibility</option><option value="Tactical Commander">Tactical Commander — planning, coordination, strategy</option><option value="Duelist">Duelist — direct skill tests, confidence, execution</option><option value="Predator">Predator — tracking, isolation, execution</option><option value="Trickster">Trickster — deception, disruption, mind games</option><option value="Controller">Controller — territory, denial, battlefield influence</option><option value="Engineer">Engineer — systems, setup, infrastructure</option><option value="Evolutionist">Evolutionist — adaptation, growth, transformation</option><option value="Champion">Champion — heroics, presence, clutch moments</option><option value="Oracle">Oracle — information, prediction, awareness</option><option value="Juggernaut">Juggernaut — pressure, dominance, unstoppable momentum</option></select><input id="archetype-custom" placeholder="Custom archetype override, optional" type="text"/><div class="helper">Custom text overrides the dropdown in the export. Scoring works best with dropdown values.</div></div><div class="card"><span class="badge tension">Optional</span><label for="contradiction">Contradiction</label><p>One deliberate tension that prevents the character from feeling too obvious.</p><select id="contradiction"><option selected="" value="">No contradiction selected</option><option>Craves recognition</option><option>Fears leadership</option><option>Distrusts others</option><option>Refuses help</option><option>Cannot let go</option><option>Seeks control</option><option>Hides vulnerability</option><option>Desires approval</option><option>Avoids responsibility</option><option>Needs redemption</option><option>Obsesses over perfection</option><option>Fears failure</option><option>Protects others for selfish reasons</option><option>Believes the ends justify the means</option><option>Wants peace but creates conflict</option><option>Needs connection but pushes people away</option><option>Claims discipline but lives for chaos</option><option>Wants freedom but controls others</option><option>Seeks intimacy through rivalry</option><option>Feels safest in danger</option><option>Uses humor to avoid grief</option><option>Protects the team by keeping secrets</option><option>Believes weakness must be hidden</option><option>Cannot accept being ordinary</option><option>Sees allies as responsibilities, not peers</option><option>Wants to be trusted but manipulates others</option><option>Needs order but thrives in crisis</option><option>Wants forgiveness but repeats old mistakes</option><option>Rejects authority while needing structure</option><option>Hunts monsters while fearing becoming one</option><option>Wants truth but fears what it reveals</option><option>Seeks power to prevent harm</option><option>Wants to inspire but avoids the spotlight</option><option>Only feels valuable when useful</option><option>Protects freedom through control</option><option>Craves family but trusts no one</option><optgroup label="Top-30 simplified flaws"><option>Impulsiveness</option><option>Overconfidence</option><option>Obsession</option><option>Self-Sacrifice</option><option>Paranoia</option><option>Isolation</option><option>Arrogance</option><option>Ruthlessness</option><option>Vanity</option><option>Bloodlust</option><option>Hatred</option><option>Naivety</option><option>Restlessness</option><option>Detachment</option><option>Recklessness</option><option>Immaturity</option><option>Guilt</option><option>Distrust</option><option>Stubbornness</option><option>Self-Doubt</option><option>Ego</option><option>Hubris</option><option>Instability</option><option>Manipulation</option><option>Extremism</option><option>Pride</option><option>Trickster Mischief</option><option>Possessiveness</option><option>Tunnel Vision</option><option>Rigidity</option><option>Overanalysis</option><option>Bitterness</option><option>Impatience</option><option>Emotional Distance</option><option>Defiance</option><option>Overcommitment</option><option>Controlling</option><option>Fearfulness</option><option>Cowardice</option><option>Burdened</option><option>Insecurity</option><option>Rage</option></optgroup></select><input id="contradiction-custom" placeholder="Custom contradiction, optional" type="text"/></div><div class="card"><span class="badge core">Generation Mode</span><label for="generation-mode">Randomization Style</label><p>Controls how aggressively randomization follows the chosen archetype.</p><select id="generation-mode"><option selected="">Balanced</option><option>Highly Coherent</option><option>Layered with One Tension</option><option>Experimental</option></select><div class="actions"><button id="randomize-all" type="button">Randomize Character</button><button class="secondary" id="randomize-pillars" type="button">Randomize Pillars Only</button></div></div></div></section>
+<section class="section"><h2>Step 2 — Choose the 7 Pillars</h2><p>Each dropdown now prioritizes cleaned top-30 traits, with redundancies merged and vague source labels rewritten into generator-useful language.</p><div class="grid">
+<div class="card"><span class="badge core">Pillar 1</span><label for="player-fantasy">Player Fantasy</label><p>What the player feels like moment to moment.</p><select id="player-fantasy"><option selected="" value="">Choose a player fantasy</option>
+<optgroup label="Top-30 simplified combat fantasies">
+<option>Agile Duelist</option>
+<option>Free-Spirited Ace</option>
+<option>Self-Sustaining Fighter</option>
+<option>Flashy Performer</option>
+<option>Patient Hunter</option>
+<option>Relentless Tracker</option>
+<option>Guardian Healer</option>
+<option>Spiritual Stabilizer</option>
+<option>Watcher</option>
+<option>Secret Keeper</option>
+<option>Shadow Operative</option>
+<option>Lost Phantom</option>
+<option>Inventor</option>
+<option>Battlefield Engineer</option>
+<option>Toxic Strategist</option>
+<option>Ruthless Survivor</option>
+<option>Elite Marksman</option>
+<option>Luxury Professional</option>
+<option>Predatory Imagery</option>
+<option>Dominating Queen</option>
+<option>Skirmisher</option>
+<option>Bright Hero</option>
+<option>Executioner</option>
+<option>Vengeful Wraith</option>
+<option>Angel Guardian</option>
+<option>Battlefield Doctor</option>
+<option>Cyber Ninja</option>
+<option>Redeemed Wanderer</option>
+<option>Perfect Sniper</option>
+<option>Cold Hunter</option>
+<option>Crusader</option>
+<option>Old-World Champion</option>
+<option>Ace Pilot</option>
+<option>Pop-Culture Defender</option>
+<option>Veteran Marksman</option>
+<option>Protective Elder</option>
+<option>Infiltrator</option>
+<option>Digital Trickster</option>
+<option>Mystic Protector</option>
+<option>Rebellious Guardian</option>
+<option>Acrobatic Hero</option>
+<option>Underdog Protector</option>
+<option>Tech Genius</option>
+<option>Visionary Armorer</option>
+<option>Battle Mage</option>
+<option>Occult Scholar</option>
+<option>Reality Warper</option>
+<option>Tragic Outcast</option>
+<option>Trickster</option>
+<option>Schemer</option>
+<option>Master Controller</option>
+<option>Revolutionary Warlord</option>
+<option>Elemental Leader</option>
+<option>Regal Protector</option>
+<option>Hunter King</option>
+<option>Royal Guardian</option>
+<option>Combat Engineer</option>
+<option>Scrappy Survivor</option>
+<option>Monstrous Predator</option>
+<option>Protective Symbiote</option>
+</optgroup>
+<optgroup label="Additional clean fantasies">
+<option>Guardian</option>
+<option>Commander</option>
+<option>Champion</option>
+<option>Hunter</option>
+<option>Engineer</option>
+<option>Survivor</option>
+<option>Avenger</option>
+<option>Oracle</option>
+<option>Vanguard</option>
+<option>Warden</option>
+<option>Shapeshifter</option>
+<option>Rebel</option>
+<option>Warlock</option>
+<option>Architect</option>
+<option>Phantom</option>
+<option>Gladiator</option>
+<option>Juggernaut</option>
+<option>Savior</option>
+<option>Alchemist</option>
+<option>Revenant</option>
+<option>Prodigy</option>
+<option>Destroyer</option>
+<option>Rogue</option>
+<option>Seer</option>
+<option>Paladin</option>
+<option>Living Weapon</option>
+<option>Battle Mystic</option>
+<option>Field Genius</option>
+<option>Pack Leader</option>
+</optgroup></select><input id="player-fantasy-custom" placeholder="Custom player fantasy, optional" type="text"/></div>
+<div class="card"><span class="badge core">Pillar 2</span><label for="growth-pattern">Growth Pattern</label><p>How the fantasy escalates over the match, story, or mastery curve.</p><select id="growth-pattern"><option selected="" value="">Choose a growth pattern</option>
+<optgroup label="Top-30 simplified escalation patterns">
+<option>Pick Snowball</option>
+<option>Tempo Momentum</option>
+<option>Comeback Potential</option>
+<option>Aggressive Re-Entry</option>
+<option>Map Mastery</option>
+<option>Pick Setup</option>
+<option>Team Survival</option>
+<option>Defensive Recovery</option>
+<option>Information Advantage</option>
+<option>Map Lockdown</option>
+<option>Fear Pressure</option>
+<option>Unpredictable Positioning</option>
+<option>Setup Advantage</option>
+<option>Network Control</option>
+<option>Attrition</option>
+<option>Map Ownership</option>
+<option>Resource Advantage</option>
+<option>Precision Scaling</option>
+<option>Kill Chain</option>
+<option>Escalating Power</option>
+<option>Tempo Control</option>
+<option>Initiative</option>
+<option>Team Sustain</option>
+<option>Recovery Swing</option>
+<option>Ultimate Resets</option>
+<option>Mastery Expression</option>
+<option>Threat Control</option>
+<option>Heroic Charge</option>
+<option>Full Commitment</option>
+<option>Mech Cycling</option>
+<option>Adaptation</option>
+<option>Fight Swing</option>
+<option>Clutch Impact</option>
+<option>System Shutdown</option>
+<option>Denial Control</option>
+<option>Clutch Saves</option>
+<option>Clutch Intervention</option>
+<option>Momentum</option>
+<option>Flow State</option>
+<option>Armor Adaptation</option>
+<option>Innovation Ramp</option>
+<option>Reality Warping</option>
+<option>Mastery</option>
+<option>Power Spike</option>
+<option>Instability</option>
+<option>Deception Layering</option>
+<option>Manipulation</option>
+<option>Environmental Dominance</option>
+<option>Command Authority</option>
+<option>Battlefield Transformation</option>
+<option>Escalating Pressure</option>
+<option>Gadget Scaling</option>
+<option>Preparation</option>
+<option>Escalating Aggression</option>
+<option>Feral Pressure</option>
+</optgroup>
+<optgroup label="Additional clean growth patterns">
+<option>Evolution</option>
+<option>Ascension</option>
+<option>Expansion</option>
+<option>Accumulation</option>
+<option>Awareness</option>
+<option>Transformation</option>
+<option>Influence</option>
+<option>Infrastructure</option>
+<option>Synchronization</option>
+<option>Discovery</option>
+<option>Territory</option>
+<option>Escalating Risk</option>
+<option>Rising Pressure</option>
+<option>Unfolding Plan</option>
+<option>Spreading Control</option>
+<option>Deepening Bond</option>
+<option>Chain Reaction</option>
+<option>Late Bloom</option>
+<option>Stored Power</option>
+<option>Rhythmic Peaks</option>
+<option>Protective Bloom</option>
+<option>Shared Power</option>
+<option>Predatory Focus</option>
+<option>Pattern Recognition</option>
+<option>System Completion</option>
+<option>Critical Mass</option>
+<option>Controlled Collapse</option>
+<option>Unleashed Form</option>
+<option>Expanding Network</option>
+<option>Fortification</option>
+<option>Adaptive Armor</option>
+<option>Mechanical Upgrade</option>
+<option>Increasing Precision</option>
+</optgroup></select><input id="growth-pattern-custom" placeholder="Custom growth pattern, optional" type="text"/></div>
+<div class="card"><span class="badge core">Pillar 3</span><label for="battlefield-function">Battlefield Function</label><p>The broad outcome they create in the match. This is not a class label.</p><select id="battlefield-function"><option selected="" value="">Choose a battlefield function</option>
+<optgroup label="Top-30 simplified battlefield functions">
+<option>Entry Assault</option>
+<option>Mobility</option>
+<option>Duelist</option>
+<option>Brawler</option>
+<option>Recon</option>
+<option>Information Control</option>
+<option>Support</option>
+<option>Protection</option>
+<option>Area Defense</option>
+<option>Controller</option>
+<option>Disruption</option>
+<option>Area Control</option>
+<option>Zone Denial</option>
+<option>Controlling</option>
+<option>Pick Specialist</option>
+<option>Carry</option>
+<option>Assassin</option>
+<option>Flanker</option>
+<option>Healer</option>
+<option>Skirmisher</option>
+<option>Tank</option>
+<option>Protector</option>
+<option>Flexible Tank</option>
+<option>Information Warfare</option>
+<option>Diver</option>
+<option>Flexible Damage Dealer</option>
+<option>Leader</option>
+<option>Burst Controller</option>
+<option>Chaos</option>
+<option>Tank Controller</option>
+<option>Support Damage Dealer</option>
+<option>Bruiser</option>
+</optgroup>
+<optgroup label="Additional clean battlefield functions">
+<option>Elimination</option>
+<option>Information</option>
+<option>Territory</option>
+<option>Coordination</option>
+<option>Pressure</option>
+<option>Attrition</option>
+<option>Infrastructure</option>
+<option>Recovery</option>
+<option>Initiation</option>
+<option>Denial</option>
+<option>Rescue</option>
+<option>Tempo</option>
+<option>Isolation</option>
+<option>Amplification</option>
+<option>Suppression</option>
+<option>Repositioning</option>
+<option>Counterplay</option>
+<option>Map Control</option>
+<option>Objective Control</option>
+<option>Space Creation</option>
+<option>Space Stabilization</option>
+<option>Threat Projection</option>
+<option>Team Sustain</option>
+<option>Vision Control</option>
+<option>Vision Denial</option>
+<option>Backline Access</option>
+<option>Frontline Pressure</option>
+<option>Formation Breaking</option>
+<option>Formation Holding</option>
+<option>Resource Denial</option>
+<option>Resource Generation</option>
+<option>Cooldown Manipulation</option>
+<option>Ally Enablement</option>
+<option>Enemy Containment</option>
+<option>Escape Control</option>
+<option>Flank Security</option>
+<option>Siege Support</option>
+<option>Ambush Setup</option>
+<option>Clutch Stabilization</option>
+<option>Objective Conversion</option>
+<option>Line-of-Sight Control</option>
+<option>Retreat Punishment</option>
+</optgroup></select><input id="battlefield-function-custom" placeholder="Custom battlefield function, optional" type="text"/></div>
+<div class="card"><span class="badge core">Pillar 4</span><label for="signature-system">Signature System</label><p>The memorable gameplay hook. Broad enough to support many ability kits.</p><select id="signature-system"><option selected="" value="">Choose a signature system</option>
+<optgroup label="Top-30 simplified signature systems">
+<option>Dash</option>
+<option>Vertical Repositioning</option>
+<option>Self-Healing Fire</option>
+<option>Second-Chance Burst</option>
+<option>Tracking Projectiles</option>
+<option>Remote Scouting</option>
+<option>Resurrection</option>
+<option>Terrain Shaping</option>
+<option>Surveillance Network</option>
+<option>Web Traps</option>
+<option>Teleportation</option>
+<option>Vision Denial</option>
+<option>Automated Gadgets</option>
+<option>Defensive Network</option>
+<option>Persistent Hazards</option>
+<option>Resource Drain</option>
+<option>Weapon Creation</option>
+<option>Teleport Anchor</option>
+<option>Soul Harvest</option>
+<option>Self-Empowerment</option>
+<option>Blink</option>
+<option>Time Rewind</option>
+<option>Wraith Form</option>
+<option>Life-Steal Pressure</option>
+<option>Damage Amplification</option>
+<option>Deflection</option>
+<option>Dragonblade</option>
+<option>Infrared Vision</option>
+<option>Grapple Angles</option>
+<option>Barrier</option>
+<option>Space Creation</option>
+<option>Mech Suit</option>
+<option>Ejection Cycle</option>
+<option>Precision Utility</option>
+<option>Biotic Skillshots</option>
+<option>Hacking</option>
+<option>Stealth Positioning</option>
+<option>Short-Range Teleport</option>
+<option>Protection Charms</option>
+<option>Web Swing</option>
+<option>Web Control</option>
+<option>Powered Suit</option>
+<option>Adaptive Weapons</option>
+<option>Portals</option>
+<option>Spatial Manipulation</option>
+<option>Chaos Magic</option>
+<option>Probability Shift</option>
+<option>Illusions</option>
+<option>Deception</option>
+<option>Magnetism</option>
+<option>Environmental Control</option>
+<option>Weather Control</option>
+<option>Environmental Shift</option>
+<option>Pounce Chains</option>
+<option>Kinetic Momentum</option>
+<option>Deployables</option>
+<option>Improvisation</option>
+<option>Symbiote Form</option>
+<option>Transformation</option>
+</optgroup>
+<optgroup label="Additional clean signature systems">
+<option>Prediction</option>
+<option>Mutation</option>
+<option>Cloning</option>
+<option>Summoning</option>
+<option>Constructs</option>
+<option>Possession</option>
+<option>Time Distortion</option>
+<option>Gravity Control</option>
+<option>Resource Conversion</option>
+<option>Territory Creation</option>
+<option>Link Networks</option>
+<option>Ability Theft</option>
+<option>Adaptation</option>
+<option>Replication</option>
+<option>Synchronization</option>
+<option>Momentum Storage</option>
+<option>Damage Redirection</option>
+<option>Future Echoes</option>
+<option>Shared Senses</option>
+<option>Living Barriers</option>
+<option>Signal Control</option>
+<option>Weapon Morphing</option>
+<option>Mark Consumption</option>
+<option>Form Cycling</option>
+<option>Zone Rewriting</option>
+<option>Ally Bonding</option>
+<option>Energy Harvesting</option>
+<option>Threat Marking</option>
+<option>Reactive Armor</option>
+<option>Delayed Effects</option>
+<option>Chain Triggers</option>
+<option>Rule Inversion</option>
+<option>Memory Playback</option>
+<option>Remote Piloting</option>
+<option>Drone Network</option>
+<option>Bio-Symbiosis</option>
+<option>Phase Shifting</option>
+<option>Sound Manipulation</option>
+<option>Light Refraction</option>
+<option>Shadow Binding</option>
+<option>Healing Conversion</option>
+<option>Sacrifice Economy</option>
+<option>Stance Switching</option>
+<option>Rift Creation</option>
+<option>Decoy Systems</option>
+<option>Armor Growth</option>
+<option>Swarm Command</option>
+<option>Path Creation</option>
+<option>Anchor Points</option>
+<option>Battlefield Memory</option>
+<option>Shared Cooldowns</option>
+<option>Living Weapons</option>
+<option>Pattern Locking</option>
+<option>Enemy Mirroring</option>
+<option>Proximity Fields</option>
+<option>Objective Infusion</option>
+</optgroup></select><input id="signature-system-custom" placeholder="Custom signature system, optional" type="text"/></div>
+<div class="card"><span class="badge character">Pillar 5</span><label for="core-drive">Core Drive</label><p>Motivation fused with flaw. This creates built-in character tension.</p><select id="core-drive"><option selected="" value="">Choose a core drive</option>
+<optgroup label="Top-30 simplified motivation → flaw pairs">
+<option>Freedom → Impulsiveness</option>
+<option>Prove Themselves → Overconfidence</option>
+<option>Duty → Obsession</option>
+<option>Protection → Self-Sacrifice</option>
+<option>Truth → Paranoia</option>
+<option>Identity → Isolation</option>
+<option>Innovation → Arrogance</option>
+<option>Results → Ruthlessness</option>
+<option>Perfection → Vanity</option>
+<option>Power → Bloodlust</option>
+<option>Heroism → Impulsiveness</option>
+<option>Revenge → Hatred</option>
+<option>Compassion → Naivety</option>
+<option>Redemption → Restlessness</option>
+<option>Duty → Detachment</option>
+<option>Honor → Recklessness</option>
+<option>Recognition → Immaturity</option>
+<option>Responsibility → Guilt</option>
+<option>Truth → Distrust</option>
+<option>Protection → Stubbornness</option>
+<option>Responsibility → Self-Doubt</option>
+<option>Innovation → Ego</option>
+<option>Protection → Hubris</option>
+<option>Belonging → Instability</option>
+<option>Self-Interest → Manipulation</option>
+<option>Survival → Extremism</option>
+<option>Leadership → Pride</option>
+<option>Duty → Isolation</option>
+<option>Survival → Trickster Mischief</option>
+<option>Connection → Possessiveness</option>
+<option>Recognition → Overconfidence</option>
+<option>Recognition → Impulsiveness</option>
+<option>Justice → Tunnel Vision</option>
+<option>Harmony → Rigidity</option>
+<option>Security → Distrust</option>
+<option>Belonging → Detachment</option>
+<option>Curiosity → Overanalysis</option>
+<option>Protection → Bitterness</option>
+<option>Status → Detachment</option>
+<option>Survival → Arrogance</option>
+<option>Friendship → Impatience</option>
+<option>Twisted Justice → Obsession</option>
+<option>Hope → Self-Doubt</option>
+<option>Balance Symbolism → Guilt</option>
+<option>Purpose → Isolation</option>
+<option>Legacy → Pride</option>
+<option>Service → Ego</option>
+<option>Family → Emotional Distance</option>
+<option>Freedom → Manipulation</option>
+<option>Community → Defiance</option>
+<option>Belonging → Overcommitment</option>
+<option>Progress → Controlling</option>
+<option>Knowledge → Detachment</option>
+<option>Love → Fearfulness</option>
+<option>Recognition → Cowardice</option>
+<option>Justice → Bitterness</option>
+<option>Responsibility → Emotional Distance</option>
+<option>Legacy → Burdened</option>
+<option>Friendship → Insecurity</option>
+<option>Acceptance → Rage</option>
+</optgroup>
+<optgroup label="Additional clean core drives">
+<option>Duty → Self-Sacrifice</option>
+<option>Discovery → Obsession</option>
+<option>Freedom → Recklessness</option>
+<option>Recognition → Pride</option>
+<option>Justice → Fanaticism</option>
+<option>Compassion → Martyrdom</option>
+<option>Order → Controlling</option>
+<option>Loyalty → Blindness</option>
+<option>Survival → Paranoia</option>
+<option>Legacy → Hubris</option>
+<option>Power → Corruption</option>
+<option>Creation → Possessiveness</option>
+<option>Progress → Ruthlessness</option>
+<option>Redemption → Guilt</option>
+<option>Protection → Overreach</option>
+<option>Truth → Cruel Honesty</option>
+<option>Belonging → Dependency</option>
+<option>Mastery → Perfectionism</option>
+<option>Rebellion → Distrust</option>
+<option>Hope → Naivety</option>
+<option>Security → Rigidity</option>
+<option>Honor → Inflexibility</option>
+<option>Vengeance → Tunnel Vision</option>
+<option>Ambition → Exploitation</option>
+<option>Atonement → Self-Punishment</option>
+</optgroup></select><input id="core-drive-custom" placeholder="Custom core drive, optional" type="text"/></div>
+<div class="card"><span class="badge character">Pillar 6</span><label for="social-role">Social Role</label><p>How the character relates to allies, banter, squad identity, and emotional texture.</p><select id="social-role"><option selected="" value="">Choose a social role</option>
+<optgroup label="Top-30 simplified team relationships">
+<option>Lone Wolf</option>
+<option>Reluctant Teammate</option>
+<option>Friendly Rival</option>
+<option>Frontline Morale</option>
+<option>Scout</option>
+<option>Advisor</option>
+<option>Caretaker</option>
+<option>Mediator</option>
+<option>Observer</option>
+<option>Strategist</option>
+<option>Detached Ally</option>
+<option>Silent Protector</option>
+<option>Problem Solver</option>
+<option>Coordinator</option>
+<option>Reluctant Ally</option>
+<option>Commander</option>
+<option>Professional</option>
+<option>Self-Interested</option>
+<option>Pack Leader</option>
+<option>Optimist</option>
+<option>Antihero</option>
+<option>Mentor</option>
+<option>Disciplined Ally</option>
+<option>Student</option>
+<option>Outsider</option>
+<option>Protector</option>
+<option>Teammate</option>
+<option>Icon</option>
+<option>Manipulator</option>
+<option>Informant</option>
+<option>Guardian</option>
+<option>Friend</option>
+<option>Friendly Ally</option>
+<option>Leader</option>
+<option>Sponsor</option>
+<option>Unpredictable Ally</option>
+<option>Tragic Hero</option>
+<option>Wild Card</option>
+<option>Rival</option>
+<option>Champion</option>
+<option>Partner</option>
+<option>Inventor</option>
+<option>Protective Monster</option>
+</optgroup>
+<optgroup label="Additional clean social roles">
+<option>Builder</option>
+<option>Ghost</option>
+<option>Negotiator</option>
+<option>Loyalist</option>
+<option>Revolutionary</option>
+<option>Field Medic</option>
+<option>Second-in-Command</option>
+<option>Truth-Teller</option>
+<option>Bridge Between Factions</option>
+<option>Mission Professional</option>
+<option>Morale Anchor</option>
+<option>Big Sibling</option>
+<option>Earnest Rookie</option>
+<option>Cynical Veteran</option>
+<option>Quiet Specialist</option>
+<option>Team Mascot</option>
+<option>Hardline Commander</option>
+<option>Soft-Spoken Genius</option>
+<option>Secret Keeper</option>
+<option>Community Builder</option>
+<option>Pragmatic Fixer</option>
+<option>Emotional Anchor</option>
+<option>Detached Professional</option>
+<option>Protective Skeptic</option>
+<option>Charismatic Rebel</option>
+<option>Pack Alpha</option>
+<option>Confessor</option>
+<option>Spiritual Guide</option>
+<option>Tactical Teacher</option>
+<option>Reluctant Protector</option>
+<option>Comic Relief</option>
+<option>Haunted Survivor</option>
+<option>Ideological Challenger</option>
+<option>Inspirational Icon</option>
+<option>Quiet Loyalist</option>
+<option>Dangerous Friend</option>
+</optgroup></select><input id="social-role-custom" placeholder="Custom social role, optional" type="text"/></div>
+<div class="card"><span class="badge character">Pillar 7</span><label for="identity">Identity</label><p>Visual motif plus source of power. This should imply shape language, VFX, lore, and ability logic.</p><select id="identity"><option selected="" value="">Choose an identity</option>
+<optgroup label="Top-30 simplified visual motif / power-source pairs">
+<option>Wind / Innate Superhuman Power</option>
+<option>Fire / Innate Superhuman Power</option>
+<option>Predatory Imagery / Advanced Technology</option>
+<option>Balance Symbolism / Innate Superhuman Power</option>
+<option>Eyes / Advanced Technology</option>
+<option>Shadow / Mysterious Power</option>
+<option>Machines / Advanced Technology</option>
+<option>Poison / Scientific Engineering</option>
+<option>Luxury / Hybrid Superhuman Technology</option>
+<option>Vampiric / Innate Superhuman Power</option>
+<option>Time / Chronal Technology</option>
+<option>Death / Experimentation</option>
+<option>Angels / Scientific Engineering</option>
+<option>Dragons / Cybernetics</option>
+<option>Spider / Peak Conditioning</option>
+<option>Knight / Powered Armor</option>
+<option>Mecha / Advanced Technology</option>
+<option>Falcon / Elite Training</option>
+<option>Glitches / Advanced Technology</option>
+<option>Fox / Spirit Magic</option>
+<option>Spider / Mutation</option>
+<option>Advanced Technology / Powered Armor</option>
+<option>Mysticism / Magic</option>
+<option>Chaos / Magic</option>
+<option>Masks / Magic</option>
+<option>Metal / Mutation</option>
+<option>Storms / Mutation</option>
+<option>Panther / Bio-Tech Enhancement</option>
+<option>Scrap Tech / Advanced Technology</option>
+<option>Symbiote / Alien Biology</option>
+<option>Speed / Elite Training</option>
+<option>Solar Energy / Willpower</option>
+<option>Wilderness / Elite Training</option>
+<option>Natural Energy / Discipline</option>
+<option>Webs / Intellect</option>
+<option>Void / Innate Superhuman Power</option>
+<option>Workshop Tools / Intellect</option>
+<option>Decay / Advanced Technology</option>
+<option>Tailored Elegance / Elite Training</option>
+<option>Predatory Imagery / Mysticism</option>
+<option>Raw Energy / Experimentation</option>
+<option>Shadow / Forbidden Science</option>
+<option>Radiant Light / Medical Science</option>
+<option>Steel Armor / Spiritual Energy</option>
+<option>Elegance / Advanced Technology</option>
+<option>Lion / Willpower</option>
+<option>Arcade Glitches / Elite Training</option>
+<option>Desert / Advanced Technology</option>
+<option>Network Lines / Intellect</option>
+<option>Shrines / Ancient Tradition</option>
+<option>Urban Style / Scientific Engineering</option>
+<option>Futurism / Intellect</option>
+<option>Dimensions / Study</option>
+<option>Crimson Energy / Mutation</option>
+<option>Trickster Mischief / Divinity</option>
+<option>Polarity / Willpower</option>
+<option>Sky Motif / Natural Energy</option>
+<option>Royalty / Ancient Tradition</option>
+<option>Scavenging / Ingenuity</option>
+<option>Teeth / Symbiosis</option>
+</optgroup>
+<optgroup label="Additional clean identities">
+<option>Divine Blood</option>
+<option>Living Scripture</option>
+<option>Relic Technology</option>
+<option>Shared Consciousness</option>
+<option>Cosmic Corruption</option>
+<option>Mutation</option>
+<option>Bio-Alchemy</option>
+<option>Ancient Covenant</option>
+<option>Dream Architecture</option>
+<option>Living Machines</option>
+<option>Sacred Geometry</option>
+<option>Living Constellations</option>
+<option>Void Parasite</option>
+<option>Elemental Core</option>
+<option>Living Shadows</option>
+<option>Temporal Artifacts</option>
+<option>Soulcraft</option>
+<option>Memory Fragments</option>
+<option>Reality Fractures</option>
+<option>Storm Relics</option>
+<option>Bonecraft</option>
+<option>Mirror Systems</option>
+<option>Cathedral Machinery</option>
+<option>Black-Market Augments</option>
+<option>Symbiotic Armor</option>
+<option>Neural Lattice</option>
+<option>Solar Engine</option>
+<option>Gravitic Relics</option>
+<option>Signal Spirits</option>
+<option>Crystal Biotech</option>
+<option>Nomad Relics</option>
+<option>Living Ink</option>
+<option>Fungal Network</option>
+<option>Iron Halo</option>
+<option>Mechanical Wings</option>
+<option>Oceanic Exoshell</option>
+<option>Glass Seraphim</option>
+<option>Swarm Chassis</option>
+<option>Ritual Armor</option>
+<option>Corporate Prototype</option>
+<option>Salvage Engine</option>
+<option>Forbidden Medicine</option>
+<option>Weather-Control Rig</option>
+<option>Prism Core</option>
+<option>Monastic Circuitry</option>
+<option>Battlefield Relics</option>
+<option>Holographic Ghosts</option>
+<option>Living Fortress</option>
+<option>Memory Cathedral</option>
+<option>Shadow Technology</option>
+<option>Sunken God-Tech</option>
+<option>Radioactive Bloom</option>
+<option>Spirit Machinery</option>
+<option>Clockwork Saints</option>
+<option>Data Swarm</option>
+<option>Volcanic Armor</option>
+<option>Ancient Drone Choir</option>
+</optgroup></select><input id="identity-custom" placeholder="Custom identity, optional" type="text"/></div>
 </div></section>
-<section class="section"><h2>Step 3 — Coherence Tools</h2><p>Coherence does not mean every choice is obvious. It means the choices can be explained as one strong character idea.</p><div class="toolbox"><div class="actions"><button type="button" id="score-coherence">Score Coherence</button><button type="button" class="secondary" id="repair-weak">Repair Weakest Pillar</button><button type="button" class="secondary" id="make-coherent">Make More Coherent</button><button type="button" class="warning" id="add-tension">Add Controlled Tension</button><button type="button" class="warning" id="clear-all">Clear All</button></div><div class="status-grid"><div class="status-box"><strong>Coherence Score</strong><div class="score" id="coherence-score">—</div><p id="coherence-label">Choose an archetype and pillars, then score the concept.</p></div><div class="status-box"><strong>Concept Type</strong><p id="concept-type">Unscored</p></div><div class="status-box"><strong>Weakest Area</strong><p id="weakest-area">Unscored</p></div></div><div class="recommendations" id="recommendations">Recommendations will appear here.</div></div></section>
-<section class="section"><h2>Step 4 — GPT-Ready Export</h2><p>Generate a clean text prompt from your selections, then paste it into GPT to create the full character brief.</p><div class="brief"><div class="brief-grid"><div><label for="character-name">Character Name</label><input id="character-name" type="text" placeholder="Optional: Vesper"/></div><div><label for="working-title">Working Title / Class Nickname</label><input id="working-title" type="text" placeholder="Optional: The Signal Warden"/></div><div class="full"><label for="export-output">Generated Selection Text</label><textarea id="export-output" class="large-textarea" readonly placeholder="Click Generate Export Text after choosing your archetype and pillars."></textarea><div class="actions"><button type="button" id="generate-export">Generate Export Text</button><button type="button" id="copy-export">Copy Export Text</button></div><div class="helper" id="copy-status" aria-live="polite">Ready.</div></div></div></div><p class="print-note">Tip: Use browser print to save a filled-out worksheet as a PDF.</p></section>
+<section class="section"><h2>Step 3 — Coherence Tools</h2><p>Coherence does not mean every choice is obvious. It means the choices can be explained as one strong character idea. The score blends archetype fit with top-30 pattern fit from observed cross-pillar trait pairings.</p><div class="toolbox"><div class="actions"><button id="score-coherence" type="button">Score Coherence</button><button class="secondary" id="repair-weak" type="button">Repair Weakest Pillar</button><button class="secondary" id="make-coherent" type="button">Make More Coherent</button><button class="warning" id="add-tension" type="button">Add Controlled Tension</button><button class="warning" id="clear-all" type="button">Clear All</button></div><div class="status-grid"><div class="status-box"><strong>Coherence Score</strong><div class="score" id="coherence-score">—</div><p id="coherence-label">Choose an archetype and pillars, then score the concept.</p></div><div class="status-box"><strong>Concept Type</strong><p id="concept-type">Unscored</p></div><div class="status-box"><strong>Weakest Area</strong><p id="weakest-area">Unscored</p></div></div><div class="recommendations" id="recommendations">Recommendations will appear here.</div></div></section>
+<section class="section"><h2>Step 4 — GPT-Ready Export</h2><p>Generate a clean text prompt from your selections, then paste it into GPT to create the full character brief.</p><div class="brief"><div class="brief-grid"><div><label for="character-name">Character Name</label><input id="character-name" placeholder="Optional: Vesper" type="text"/></div><div><label for="working-title">Working Title / Class Nickname</label><input id="working-title" placeholder="Optional: The Signal Warden" type="text"/></div><div class="full"><label for="export-output">Generated Selection Text</label><textarea class="large-textarea" id="export-output" placeholder="Click Generate Export Text after choosing your archetype and pillars." readonly=""></textarea><div class="actions"><button id="generate-export" type="button">Generate Export Text</button><button id="copy-export" type="button">Copy Export Text</button></div><div aria-live="polite" class="helper" id="copy-status">Ready.</div></div></div></div><p class="print-note">Tip: Use browser print to save a filled-out worksheet as a PDF.</p></section>
 </div></main>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
+var topHeroTraitOptions={
+  "player-fantasy": [
+    "Agile Duelist",
+    "Free-Spirited Ace",
+    "Self-Sustaining Fighter",
+    "Flashy Performer",
+    "Patient Hunter",
+    "Relentless Tracker",
+    "Guardian Healer",
+    "Spiritual Stabilizer",
+    "Watcher",
+    "Secret Keeper",
+    "Shadow Operative",
+    "Lost Phantom",
+    "Inventor",
+    "Battlefield Engineer",
+    "Toxic Strategist",
+    "Ruthless Survivor",
+    "Elite Marksman",
+    "Luxury Professional",
+    "Predatory Imagery",
+    "Dominating Queen",
+    "Skirmisher",
+    "Bright Hero",
+    "Executioner",
+    "Vengeful Wraith",
+    "Angel Guardian",
+    "Battlefield Doctor",
+    "Cyber Ninja",
+    "Redeemed Wanderer",
+    "Perfect Sniper",
+    "Cold Hunter",
+    "Crusader",
+    "Old-World Champion",
+    "Ace Pilot",
+    "Pop-Culture Defender",
+    "Veteran Marksman",
+    "Protective Elder",
+    "Infiltrator",
+    "Digital Trickster",
+    "Mystic Protector",
+    "Rebellious Guardian",
+    "Acrobatic Hero",
+    "Underdog Protector",
+    "Tech Genius",
+    "Visionary Armorer",
+    "Battle Mage",
+    "Occult Scholar",
+    "Reality Warper",
+    "Tragic Outcast",
+    "Trickster",
+    "Schemer",
+    "Master Controller",
+    "Revolutionary Warlord",
+    "Elemental Leader",
+    "Regal Protector",
+    "Hunter King",
+    "Royal Guardian",
+    "Combat Engineer",
+    "Scrappy Survivor",
+    "Monstrous Predator",
+    "Protective Symbiote"
+  ],
+  "growth-pattern": [
+    "Pick Snowball",
+    "Tempo Momentum",
+    "Comeback Potential",
+    "Aggressive Re-Entry",
+    "Map Mastery",
+    "Pick Setup",
+    "Team Survival",
+    "Defensive Recovery",
+    "Information Advantage",
+    "Map Lockdown",
+    "Fear Pressure",
+    "Unpredictable Positioning",
+    "Setup Advantage",
+    "Network Control",
+    "Attrition",
+    "Map Ownership",
+    "Resource Advantage",
+    "Precision Scaling",
+    "Kill Chain",
+    "Escalating Power",
+    "Tempo Control",
+    "Initiative",
+    "Team Sustain",
+    "Recovery Swing",
+    "Ultimate Resets",
+    "Mastery Expression",
+    "Threat Control",
+    "Heroic Charge",
+    "Full Commitment",
+    "Mech Cycling",
+    "Adaptation",
+    "Fight Swing",
+    "Clutch Impact",
+    "System Shutdown",
+    "Denial Control",
+    "Clutch Saves",
+    "Clutch Intervention",
+    "Momentum",
+    "Flow State",
+    "Armor Adaptation",
+    "Innovation Ramp",
+    "Reality Warping",
+    "Mastery",
+    "Power Spike",
+    "Instability",
+    "Deception Layering",
+    "Manipulation",
+    "Environmental Dominance",
+    "Command Authority",
+    "Battlefield Transformation",
+    "Escalating Pressure",
+    "Gadget Scaling",
+    "Preparation",
+    "Escalating Aggression",
+    "Feral Pressure"
+  ],
+  "battlefield-function": [
+    "Entry Assault",
+    "Mobility",
+    "Duelist",
+    "Brawler",
+    "Recon",
+    "Information Control",
+    "Support",
+    "Protection",
+    "Area Defense",
+    "Controller",
+    "Disruption",
+    "Area Control",
+    "Zone Denial",
+    "Controlling",
+    "Pick Specialist",
+    "Carry",
+    "Assassin",
+    "Flanker",
+    "Healer",
+    "Skirmisher",
+    "Tank",
+    "Protector",
+    "Flexible Tank",
+    "Information Warfare",
+    "Diver",
+    "Flexible Damage Dealer",
+    "Leader",
+    "Burst Controller",
+    "Chaos",
+    "Tank Controller",
+    "Support Damage Dealer",
+    "Bruiser"
+  ],
+  "signature-system": [
+    "Dash",
+    "Vertical Repositioning",
+    "Self-Healing Fire",
+    "Second-Chance Burst",
+    "Tracking Projectiles",
+    "Remote Scouting",
+    "Resurrection",
+    "Terrain Shaping",
+    "Surveillance Network",
+    "Web Traps",
+    "Teleportation",
+    "Vision Denial",
+    "Automated Gadgets",
+    "Defensive Network",
+    "Persistent Hazards",
+    "Resource Drain",
+    "Weapon Creation",
+    "Teleport Anchor",
+    "Soul Harvest",
+    "Self-Empowerment",
+    "Blink",
+    "Time Rewind",
+    "Wraith Form",
+    "Life-Steal Pressure",
+    "Damage Amplification",
+    "Deflection",
+    "Dragonblade",
+    "Infrared Vision",
+    "Grapple Angles",
+    "Barrier",
+    "Space Creation",
+    "Mech Suit",
+    "Ejection Cycle",
+    "Precision Utility",
+    "Biotic Skillshots",
+    "Hacking",
+    "Stealth Positioning",
+    "Short-Range Teleport",
+    "Protection Charms",
+    "Web Swing",
+    "Web Control",
+    "Powered Suit",
+    "Adaptive Weapons",
+    "Portals",
+    "Spatial Manipulation",
+    "Chaos Magic",
+    "Probability Shift",
+    "Illusions",
+    "Deception",
+    "Magnetism",
+    "Environmental Control",
+    "Weather Control",
+    "Environmental Shift",
+    "Pounce Chains",
+    "Kinetic Momentum",
+    "Deployables",
+    "Improvisation",
+    "Symbiote Form",
+    "Transformation"
+  ],
+  "core-drive": [
+    "Freedom → Impulsiveness",
+    "Prove Themselves → Overconfidence",
+    "Duty → Obsession",
+    "Protection → Self-Sacrifice",
+    "Truth → Paranoia",
+    "Identity → Isolation",
+    "Innovation → Arrogance",
+    "Results → Ruthlessness",
+    "Perfection → Vanity",
+    "Power → Bloodlust",
+    "Heroism → Impulsiveness",
+    "Revenge → Hatred",
+    "Compassion → Naivety",
+    "Redemption → Restlessness",
+    "Duty → Detachment",
+    "Honor → Recklessness",
+    "Recognition → Immaturity",
+    "Responsibility → Guilt",
+    "Truth → Distrust",
+    "Protection → Stubbornness",
+    "Responsibility → Self-Doubt",
+    "Innovation → Ego",
+    "Protection → Hubris",
+    "Belonging → Instability",
+    "Self-Interest → Manipulation",
+    "Survival → Extremism",
+    "Leadership → Pride",
+    "Duty → Isolation",
+    "Survival → Trickster Mischief",
+    "Connection → Possessiveness",
+    "Recognition → Overconfidence",
+    "Recognition → Impulsiveness",
+    "Justice → Tunnel Vision",
+    "Harmony → Rigidity",
+    "Security → Distrust",
+    "Belonging → Detachment",
+    "Curiosity → Overanalysis",
+    "Protection → Bitterness",
+    "Status → Detachment",
+    "Survival → Arrogance",
+    "Friendship → Impatience",
+    "Twisted Justice → Obsession",
+    "Hope → Self-Doubt",
+    "Balance Symbolism → Guilt",
+    "Purpose → Isolation",
+    "Legacy → Pride",
+    "Service → Ego",
+    "Family → Emotional Distance",
+    "Freedom → Manipulation",
+    "Community → Defiance",
+    "Belonging → Overcommitment",
+    "Progress → Controlling",
+    "Knowledge → Detachment",
+    "Love → Fearfulness",
+    "Recognition → Cowardice",
+    "Justice → Bitterness",
+    "Responsibility → Emotional Distance",
+    "Legacy → Burdened",
+    "Friendship → Insecurity",
+    "Acceptance → Rage"
+  ],
+  "social-role": [
+    "Lone Wolf",
+    "Reluctant Teammate",
+    "Friendly Rival",
+    "Frontline Morale",
+    "Scout",
+    "Advisor",
+    "Caretaker",
+    "Mediator",
+    "Observer",
+    "Strategist",
+    "Detached Ally",
+    "Silent Protector",
+    "Problem Solver",
+    "Coordinator",
+    "Reluctant Ally",
+    "Commander",
+    "Professional",
+    "Self-Interested",
+    "Pack Leader",
+    "Optimist",
+    "Antihero",
+    "Mentor",
+    "Disciplined Ally",
+    "Student",
+    "Outsider",
+    "Protector",
+    "Teammate",
+    "Icon",
+    "Manipulator",
+    "Informant",
+    "Guardian",
+    "Friend",
+    "Friendly Ally",
+    "Leader",
+    "Sponsor",
+    "Unpredictable Ally",
+    "Tragic Hero",
+    "Wild Card",
+    "Rival",
+    "Champion",
+    "Partner",
+    "Inventor",
+    "Protective Monster"
+  ],
+  "identity": [
+    "Wind / Innate Superhuman Power",
+    "Fire / Innate Superhuman Power",
+    "Predatory Imagery / Advanced Technology",
+    "Balance Symbolism / Innate Superhuman Power",
+    "Eyes / Advanced Technology",
+    "Shadow / Mysterious Power",
+    "Machines / Advanced Technology",
+    "Poison / Scientific Engineering",
+    "Luxury / Hybrid Superhuman Technology",
+    "Vampiric / Innate Superhuman Power",
+    "Time / Chronal Technology",
+    "Death / Experimentation",
+    "Angels / Scientific Engineering",
+    "Dragons / Cybernetics",
+    "Spider / Peak Conditioning",
+    "Knight / Powered Armor",
+    "Mecha / Advanced Technology",
+    "Falcon / Elite Training",
+    "Glitches / Advanced Technology",
+    "Fox / Spirit Magic",
+    "Spider / Mutation",
+    "Advanced Technology / Powered Armor",
+    "Mysticism / Magic",
+    "Chaos / Magic",
+    "Masks / Magic",
+    "Metal / Mutation",
+    "Storms / Mutation",
+    "Panther / Bio-Tech Enhancement",
+    "Scrap Tech / Advanced Technology",
+    "Symbiote / Alien Biology",
+    "Speed / Elite Training",
+    "Solar Energy / Willpower",
+    "Wilderness / Elite Training",
+    "Natural Energy / Discipline",
+    "Webs / Intellect",
+    "Void / Innate Superhuman Power",
+    "Workshop Tools / Intellect",
+    "Decay / Advanced Technology",
+    "Tailored Elegance / Elite Training",
+    "Predatory Imagery / Mysticism",
+    "Raw Energy / Experimentation",
+    "Shadow / Forbidden Science",
+    "Radiant Light / Medical Science",
+    "Steel Armor / Spiritual Energy",
+    "Elegance / Advanced Technology",
+    "Lion / Willpower",
+    "Arcade Glitches / Elite Training",
+    "Desert / Advanced Technology",
+    "Network Lines / Intellect",
+    "Shrines / Ancient Tradition",
+    "Urban Style / Scientific Engineering",
+    "Futurism / Intellect",
+    "Dimensions / Study",
+    "Crimson Energy / Mutation",
+    "Trickster Mischief / Divinity",
+    "Polarity / Willpower",
+    "Sky Motif / Natural Energy",
+    "Royalty / Ancient Tradition",
+    "Scavenging / Ingenuity",
+    "Teeth / Symbiosis"
+  ]
+};
+var topHeroPatterns=[
+  {
+    "game": "Valorant",
+    "character": "Jett",
+    "fields": {
+      "player-fantasy": [
+        "Agile Duelist",
+        "Free-Spirited Ace"
+      ],
+      "growth-pattern": [
+        "Pick Snowball",
+        "Tempo Momentum"
+      ],
+      "battlefield-function": [
+        "Entry Assault",
+        "Mobility"
+      ],
+      "signature-system": [
+        "Dash",
+        "Vertical Repositioning"
+      ],
+      "core-drive": [
+        "Freedom → Impulsiveness",
+        "Recognition → Overconfidence"
+      ],
+      "social-role": [
+        "Lone Wolf",
+        "Reluctant Teammate"
+      ],
+      "identity": [
+        "Wind / Innate Superhuman Power",
+        "Speed / Elite Training"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Phoenix",
+    "fields": {
+      "player-fantasy": [
+        "Self-Sustaining Fighter",
+        "Flashy Performer"
+      ],
+      "growth-pattern": [
+        "Comeback Potential",
+        "Aggressive Re-Entry"
+      ],
+      "battlefield-function": [
+        "Duelist",
+        "Brawler"
+      ],
+      "signature-system": [
+        "Self-Healing Fire",
+        "Second-Chance Burst"
+      ],
+      "core-drive": [
+        "Prove Themselves → Overconfidence",
+        "Recognition → Impulsiveness"
+      ],
+      "social-role": [
+        "Friendly Rival",
+        "Frontline Morale"
+      ],
+      "identity": [
+        "Fire / Innate Superhuman Power",
+        "Solar Energy / Willpower"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Sova",
+    "fields": {
+      "player-fantasy": [
+        "Patient Hunter",
+        "Relentless Tracker"
+      ],
+      "growth-pattern": [
+        "Map Mastery",
+        "Pick Setup"
+      ],
+      "battlefield-function": [
+        "Recon",
+        "Information Control"
+      ],
+      "signature-system": [
+        "Tracking Projectiles",
+        "Remote Scouting"
+      ],
+      "core-drive": [
+        "Duty → Obsession",
+        "Justice → Tunnel Vision"
+      ],
+      "social-role": [
+        "Scout",
+        "Advisor"
+      ],
+      "identity": [
+        "Predatory Imagery / Advanced Technology",
+        "Wilderness / Elite Training"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Sage",
+    "fields": {
+      "player-fantasy": [
+        "Guardian Healer",
+        "Spiritual Stabilizer"
+      ],
+      "growth-pattern": [
+        "Team Survival",
+        "Defensive Recovery"
+      ],
+      "battlefield-function": [
+        "Support",
+        "Protection"
+      ],
+      "signature-system": [
+        "Resurrection",
+        "Terrain Shaping"
+      ],
+      "core-drive": [
+        "Protection → Self-Sacrifice",
+        "Harmony → Rigidity"
+      ],
+      "social-role": [
+        "Caretaker",
+        "Mediator"
+      ],
+      "identity": [
+        "Balance Symbolism / Innate Superhuman Power",
+        "Natural Energy / Discipline"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Cypher",
+    "fields": {
+      "player-fantasy": [
+        "Watcher",
+        "Secret Keeper"
+      ],
+      "growth-pattern": [
+        "Information Advantage",
+        "Map Lockdown"
+      ],
+      "battlefield-function": [
+        "Information Control",
+        "Area Defense"
+      ],
+      "signature-system": [
+        "Surveillance Network",
+        "Web Traps"
+      ],
+      "core-drive": [
+        "Truth → Paranoia",
+        "Security → Distrust"
+      ],
+      "social-role": [
+        "Observer",
+        "Strategist"
+      ],
+      "identity": [
+        "Eyes / Advanced Technology",
+        "Webs / Intellect"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Omen",
+    "fields": {
+      "player-fantasy": [
+        "Shadow Operative",
+        "Lost Phantom"
+      ],
+      "growth-pattern": [
+        "Fear Pressure",
+        "Unpredictable Positioning"
+      ],
+      "battlefield-function": [
+        "Controller",
+        "Disruption"
+      ],
+      "signature-system": [
+        "Teleportation",
+        "Vision Denial"
+      ],
+      "core-drive": [
+        "Identity → Isolation",
+        "Belonging → Detachment"
+      ],
+      "social-role": [
+        "Detached Ally",
+        "Silent Protector"
+      ],
+      "identity": [
+        "Shadow / Mysterious Power",
+        "Void / Innate Superhuman Power"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Killjoy",
+    "fields": {
+      "player-fantasy": [
+        "Inventor",
+        "Battlefield Engineer"
+      ],
+      "growth-pattern": [
+        "Setup Advantage",
+        "Network Control"
+      ],
+      "battlefield-function": [
+        "Area Control",
+        "Support"
+      ],
+      "signature-system": [
+        "Automated Gadgets",
+        "Defensive Network"
+      ],
+      "core-drive": [
+        "Innovation → Arrogance",
+        "Curiosity → Overanalysis"
+      ],
+      "social-role": [
+        "Problem Solver",
+        "Coordinator"
+      ],
+      "identity": [
+        "Machines / Advanced Technology",
+        "Workshop Tools / Intellect"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Viper",
+    "fields": {
+      "player-fantasy": [
+        "Toxic Strategist",
+        "Ruthless Survivor"
+      ],
+      "growth-pattern": [
+        "Attrition",
+        "Map Ownership"
+      ],
+      "battlefield-function": [
+        "Zone Denial",
+        "Controlling"
+      ],
+      "signature-system": [
+        "Persistent Hazards",
+        "Resource Drain"
+      ],
+      "core-drive": [
+        "Results → Ruthlessness",
+        "Protection → Bitterness"
+      ],
+      "social-role": [
+        "Reluctant Ally",
+        "Commander"
+      ],
+      "identity": [
+        "Poison / Scientific Engineering",
+        "Decay / Advanced Technology"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Chamber",
+    "fields": {
+      "player-fantasy": [
+        "Elite Marksman",
+        "Luxury Professional"
+      ],
+      "growth-pattern": [
+        "Resource Advantage",
+        "Precision Scaling"
+      ],
+      "battlefield-function": [
+        "Pick Specialist",
+        "Controlling"
+      ],
+      "signature-system": [
+        "Weapon Creation",
+        "Teleport Anchor"
+      ],
+      "core-drive": [
+        "Perfection → Vanity",
+        "Status → Detachment"
+      ],
+      "social-role": [
+        "Professional",
+        "Lone Wolf"
+      ],
+      "identity": [
+        "Luxury / Hybrid Superhuman Technology",
+        "Tailored Elegance / Elite Training"
+      ]
+    }
+  },
+  {
+    "game": "Valorant",
+    "character": "Reyna",
+    "fields": {
+      "player-fantasy": [
+        "Predatory Imagery",
+        "Dominating Queen"
+      ],
+      "growth-pattern": [
+        "Kill Chain",
+        "Escalating Power"
+      ],
+      "battlefield-function": [
+        "Carry",
+        "Assassin"
+      ],
+      "signature-system": [
+        "Soul Harvest",
+        "Self-Empowerment"
+      ],
+      "core-drive": [
+        "Power → Bloodlust",
+        "Survival → Arrogance"
+      ],
+      "social-role": [
+        "Self-Interested",
+        "Pack Leader"
+      ],
+      "identity": [
+        "Vampiric / Innate Superhuman Power",
+        "Predatory Imagery / Mysticism"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Tracer",
+    "fields": {
+      "player-fantasy": [
+        "Skirmisher",
+        "Bright Hero"
+      ],
+      "growth-pattern": [
+        "Tempo Control",
+        "Initiative"
+      ],
+      "battlefield-function": [
+        "Mobility",
+        "Disruption"
+      ],
+      "signature-system": [
+        "Blink",
+        "Time Rewind"
+      ],
+      "core-drive": [
+        "Heroism → Impulsiveness",
+        "Friendship → Impatience"
+      ],
+      "social-role": [
+        "Optimist",
+        "Scout"
+      ],
+      "identity": [
+        "Time / Chronal Technology",
+        "Raw Energy / Experimentation"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Reaper",
+    "fields": {
+      "player-fantasy": [
+        "Executioner",
+        "Vengeful Wraith"
+      ],
+      "growth-pattern": [
+        "Fear Pressure",
+        "Attrition"
+      ],
+      "battlefield-function": [
+        "Flanker",
+        "Assassin"
+      ],
+      "signature-system": [
+        "Wraith Form",
+        "Life-Steal Pressure"
+      ],
+      "core-drive": [
+        "Revenge → Hatred",
+        "Twisted Justice → Obsession"
+      ],
+      "social-role": [
+        "Antihero",
+        "Lone Wolf"
+      ],
+      "identity": [
+        "Death / Experimentation",
+        "Shadow / Forbidden Science"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Mercy",
+    "fields": {
+      "player-fantasy": [
+        "Angel Guardian",
+        "Battlefield Doctor"
+      ],
+      "growth-pattern": [
+        "Team Sustain",
+        "Recovery Swing"
+      ],
+      "battlefield-function": [
+        "Healer",
+        "Support"
+      ],
+      "signature-system": [
+        "Resurrection",
+        "Damage Amplification"
+      ],
+      "core-drive": [
+        "Compassion → Naivety",
+        "Hope → Self-Doubt"
+      ],
+      "social-role": [
+        "Caretaker",
+        "Mentor"
+      ],
+      "identity": [
+        "Angels / Scientific Engineering",
+        "Radiant Light / Medical Science"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Genji",
+    "fields": {
+      "player-fantasy": [
+        "Cyber Ninja",
+        "Redeemed Wanderer"
+      ],
+      "growth-pattern": [
+        "Ultimate Resets",
+        "Mastery Expression"
+      ],
+      "battlefield-function": [
+        "Assassin",
+        "Skirmisher"
+      ],
+      "signature-system": [
+        "Deflection",
+        "Dragonblade"
+      ],
+      "core-drive": [
+        "Redemption → Restlessness",
+        "Balance Symbolism → Guilt"
+      ],
+      "social-role": [
+        "Disciplined Ally",
+        "Student"
+      ],
+      "identity": [
+        "Dragons / Cybernetics",
+        "Steel Armor / Spiritual Energy"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Widowmaker",
+    "fields": {
+      "player-fantasy": [
+        "Perfect Sniper",
+        "Cold Hunter"
+      ],
+      "growth-pattern": [
+        "Precision Scaling",
+        "Threat Control"
+      ],
+      "battlefield-function": [
+        "Pick Specialist",
+        "Recon"
+      ],
+      "signature-system": [
+        "Infrared Vision",
+        "Grapple Angles"
+      ],
+      "core-drive": [
+        "Duty → Detachment",
+        "Purpose → Isolation"
+      ],
+      "social-role": [
+        "Professional",
+        "Outsider"
+      ],
+      "identity": [
+        "Spider / Peak Conditioning",
+        "Elegance / Advanced Technology"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Reinhardt",
+    "fields": {
+      "player-fantasy": [
+        "Crusader",
+        "Old-World Champion"
+      ],
+      "growth-pattern": [
+        "Heroic Charge",
+        "Full Commitment"
+      ],
+      "battlefield-function": [
+        "Tank",
+        "Protector"
+      ],
+      "signature-system": [
+        "Barrier",
+        "Space Creation"
+      ],
+      "core-drive": [
+        "Honor → Recklessness",
+        "Legacy → Pride"
+      ],
+      "social-role": [
+        "Protector",
+        "Mentor"
+      ],
+      "identity": [
+        "Knight / Powered Armor",
+        "Lion / Willpower"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "D.Va",
+    "fields": {
+      "player-fantasy": [
+        "Ace Pilot",
+        "Pop-Culture Defender"
+      ],
+      "growth-pattern": [
+        "Mech Cycling",
+        "Adaptation"
+      ],
+      "battlefield-function": [
+        "Disruption",
+        "Flexible Tank"
+      ],
+      "signature-system": [
+        "Mech Suit",
+        "Ejection Cycle"
+      ],
+      "core-drive": [
+        "Recognition → Immaturity",
+        "Service → Ego"
+      ],
+      "social-role": [
+        "Teammate",
+        "Icon"
+      ],
+      "identity": [
+        "Mecha / Advanced Technology",
+        "Arcade Glitches / Elite Training"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Ana",
+    "fields": {
+      "player-fantasy": [
+        "Veteran Marksman",
+        "Protective Elder"
+      ],
+      "growth-pattern": [
+        "Fight Swing",
+        "Clutch Impact"
+      ],
+      "battlefield-function": [
+        "Support",
+        "Controlling"
+      ],
+      "signature-system": [
+        "Precision Utility",
+        "Biotic Skillshots"
+      ],
+      "core-drive": [
+        "Responsibility → Guilt",
+        "Family → Emotional Distance"
+      ],
+      "social-role": [
+        "Mentor",
+        "Commander"
+      ],
+      "identity": [
+        "Falcon / Elite Training",
+        "Desert / Advanced Technology"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Sombra",
+    "fields": {
+      "player-fantasy": [
+        "Infiltrator",
+        "Digital Trickster"
+      ],
+      "growth-pattern": [
+        "System Shutdown",
+        "Denial Control"
+      ],
+      "battlefield-function": [
+        "Information Warfare",
+        "Disruption"
+      ],
+      "signature-system": [
+        "Hacking",
+        "Stealth Positioning"
+      ],
+      "core-drive": [
+        "Truth → Distrust",
+        "Freedom → Manipulation"
+      ],
+      "social-role": [
+        "Manipulator",
+        "Informant"
+      ],
+      "identity": [
+        "Glitches / Advanced Technology",
+        "Network Lines / Intellect"
+      ]
+    }
+  },
+  {
+    "game": "Overwatch",
+    "character": "Kiriko",
+    "fields": {
+      "player-fantasy": [
+        "Mystic Protector",
+        "Rebellious Guardian"
+      ],
+      "growth-pattern": [
+        "Clutch Saves",
+        "Clutch Intervention"
+      ],
+      "battlefield-function": [
+        "Support",
+        "Mobility"
+      ],
+      "signature-system": [
+        "Short-Range Teleport",
+        "Protection Charms"
+      ],
+      "core-drive": [
+        "Protection → Stubbornness",
+        "Community → Defiance"
+      ],
+      "social-role": [
+        "Guardian",
+        "Friend"
+      ],
+      "identity": [
+        "Fox / Spirit Magic",
+        "Shrines / Ancient Tradition"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Spider-Man",
+    "fields": {
+      "player-fantasy": [
+        "Acrobatic Hero",
+        "Underdog Protector"
+      ],
+      "growth-pattern": [
+        "Momentum",
+        "Flow State"
+      ],
+      "battlefield-function": [
+        "Diver",
+        "Skirmisher"
+      ],
+      "signature-system": [
+        "Web Swing",
+        "Web Control"
+      ],
+      "core-drive": [
+        "Responsibility → Self-Doubt",
+        "Belonging → Overcommitment"
+      ],
+      "social-role": [
+        "Friendly Ally",
+        "Protector"
+      ],
+      "identity": [
+        "Spider / Mutation",
+        "Urban Style / Scientific Engineering"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Iron Man",
+    "fields": {
+      "player-fantasy": [
+        "Tech Genius",
+        "Visionary Armorer"
+      ],
+      "growth-pattern": [
+        "Armor Adaptation",
+        "Innovation Ramp"
+      ],
+      "battlefield-function": [
+        "Flexible Damage Dealer",
+        "Leader"
+      ],
+      "signature-system": [
+        "Powered Suit",
+        "Adaptive Weapons"
+      ],
+      "core-drive": [
+        "Innovation → Ego",
+        "Progress → Controlling"
+      ],
+      "social-role": [
+        "Leader",
+        "Sponsor"
+      ],
+      "identity": [
+        "Advanced Technology / Powered Armor",
+        "Futurism / Intellect"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Doctor Strange",
+    "fields": {
+      "player-fantasy": [
+        "Battle Mage",
+        "Occult Scholar"
+      ],
+      "growth-pattern": [
+        "Reality Warping",
+        "Mastery"
+      ],
+      "battlefield-function": [
+        "Controlling",
+        "Support"
+      ],
+      "signature-system": [
+        "Portals",
+        "Spatial Manipulation"
+      ],
+      "core-drive": [
+        "Protection → Hubris",
+        "Knowledge → Detachment"
+      ],
+      "social-role": [
+        "Advisor",
+        "Guardian"
+      ],
+      "identity": [
+        "Mysticism / Magic",
+        "Dimensions / Study"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Scarlet Witch",
+    "fields": {
+      "player-fantasy": [
+        "Reality Warper",
+        "Tragic Outcast"
+      ],
+      "growth-pattern": [
+        "Power Spike",
+        "Instability"
+      ],
+      "battlefield-function": [
+        "Burst Controller",
+        "Chaos"
+      ],
+      "signature-system": [
+        "Chaos Magic",
+        "Probability Shift"
+      ],
+      "core-drive": [
+        "Belonging → Instability",
+        "Love → Fearfulness"
+      ],
+      "social-role": [
+        "Unpredictable Ally",
+        "Tragic Hero"
+      ],
+      "identity": [
+        "Chaos / Magic",
+        "Crimson Energy / Mutation"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Loki",
+    "fields": {
+      "player-fantasy": [
+        "Trickster",
+        "Schemer"
+      ],
+      "growth-pattern": [
+        "Deception Layering",
+        "Manipulation"
+      ],
+      "battlefield-function": [
+        "Disruption",
+        "Controlling"
+      ],
+      "signature-system": [
+        "Illusions",
+        "Deception"
+      ],
+      "core-drive": [
+        "Self-Interest → Manipulation",
+        "Recognition → Cowardice"
+      ],
+      "social-role": [
+        "Wild Card",
+        "Rival"
+      ],
+      "identity": [
+        "Masks / Magic",
+        "Trickster Mischief / Divinity"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Magneto",
+    "fields": {
+      "player-fantasy": [
+        "Master Controller",
+        "Revolutionary Warlord"
+      ],
+      "growth-pattern": [
+        "Environmental Dominance",
+        "Command Authority"
+      ],
+      "battlefield-function": [
+        "Tank Controller",
+        "Leader"
+      ],
+      "signature-system": [
+        "Magnetism",
+        "Environmental Control"
+      ],
+      "core-drive": [
+        "Survival → Extremism",
+        "Justice → Bitterness"
+      ],
+      "social-role": [
+        "Commander",
+        "Protector"
+      ],
+      "identity": [
+        "Metal / Mutation",
+        "Polarity / Willpower"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Storm",
+    "fields": {
+      "player-fantasy": [
+        "Elemental Leader",
+        "Regal Protector"
+      ],
+      "growth-pattern": [
+        "Battlefield Transformation",
+        "Escalating Pressure"
+      ],
+      "battlefield-function": [
+        "Area Control",
+        "Support"
+      ],
+      "signature-system": [
+        "Weather Control",
+        "Environmental Shift"
+      ],
+      "core-drive": [
+        "Leadership → Pride",
+        "Responsibility → Emotional Distance"
+      ],
+      "social-role": [
+        "Commander",
+        "Mentor"
+      ],
+      "identity": [
+        "Storms / Mutation",
+        "Sky Motif / Natural Energy"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Black Panther",
+    "fields": {
+      "player-fantasy": [
+        "Hunter King",
+        "Royal Guardian"
+      ],
+      "growth-pattern": [
+        "Mastery",
+        "Momentum"
+      ],
+      "battlefield-function": [
+        "Assassin",
+        "Duelist"
+      ],
+      "signature-system": [
+        "Pounce Chains",
+        "Kinetic Momentum"
+      ],
+      "core-drive": [
+        "Duty → Isolation",
+        "Legacy → Burdened"
+      ],
+      "social-role": [
+        "Champion",
+        "Leader"
+      ],
+      "identity": [
+        "Panther / Bio-Tech Enhancement",
+        "Royalty / Ancient Tradition"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Rocket Raccoon",
+    "fields": {
+      "player-fantasy": [
+        "Combat Engineer",
+        "Scrappy Survivor"
+      ],
+      "growth-pattern": [
+        "Gadget Scaling",
+        "Preparation"
+      ],
+      "battlefield-function": [
+        "Support Damage Dealer",
+        "Controlling"
+      ],
+      "signature-system": [
+        "Deployables",
+        "Improvisation"
+      ],
+      "core-drive": [
+        "Survival → Trickster Mischief",
+        "Friendship → Insecurity"
+      ],
+      "social-role": [
+        "Partner",
+        "Inventor"
+      ],
+      "identity": [
+        "Scrap Tech / Advanced Technology",
+        "Scavenging / Ingenuity"
+      ]
+    }
+  },
+  {
+    "game": "Marvel Rivals",
+    "character": "Venom",
+    "fields": {
+      "player-fantasy": [
+        "Monstrous Predator",
+        "Protective Symbiote"
+      ],
+      "growth-pattern": [
+        "Escalating Aggression",
+        "Feral Pressure"
+      ],
+      "battlefield-function": [
+        "Bruiser",
+        "Diver"
+      ],
+      "signature-system": [
+        "Symbiote Form",
+        "Transformation"
+      ],
+      "core-drive": [
+        "Connection → Possessiveness",
+        "Acceptance → Rage"
+      ],
+      "social-role": [
+        "Protective Monster",
+        "Antihero"
+      ],
+      "identity": [
+        "Symbiote / Alien Biology",
+        "Teeth / Symbiosis"
+      ]
+    }
+  }
+];
 var archetypeTags={"Dive Skirmisher":["mobility","mastery","speed","aggression","outplay","risk","precision"],"Protective Anchor":["protection","team","reliability","defense","responsibility","rescue","stability"],"Tactical Commander":["strategy","coordination","planning","tempo","leadership","information","control"],"Duelist":["mastery","precision","confidence","execution","pressure","solo","competition"],"Predator":["hunt","tracking","isolation","elimination","fear","ambush","execution"],"Trickster":["deception","disruption","creativity","mindgames","chaos","misdirection","rulebreak"],"Controller":["control","territory","denial","positioning","influence","pressure","space"],"Engineer":["systems","infrastructure","setup","optimization","constructs","planning","resource"],"Evolutionist":["growth","adaptation","transformation","mutation","scaling","survival","change"],"Champion":["heroism","presence","inspiration","clutch","leadership","confidence","responsibility"],"Oracle":["information","prediction","awareness","insight","planning","knowledge","foresight"],"Juggernaut":["power","pressure","dominance","momentum","durability","fear","unstoppable"]};
 var tagHints={
 "Guardian":["protection","team","defense"],"Predator":["hunt","fear","elimination"],"Prophet":["prediction","knowledge","foresight"],"Commander":["leadership","strategy","coordination"],"Trickster":["deception","disruption","creativity"],"Champion":["heroism","presence","clutch"],"Wanderer":["mobility","freedom","adaptation"],"Monster":["power","fear","mutation"],"Sentinel":["territory","defense","stability"],"Sovereign":["influence","control","presence"],"Hunter":["tracking","precision","hunt"],"Engineer":["systems","constructs","infrastructure"],"Survivor":["survival","adaptation","durability"],"Avenger":["aggression","justice","pressure"],"Explorer":["discovery","awareness","mobility"],"Visionary":["planning","knowledge","foresight"],"Oracle":["information","prediction","awareness"],"Vanguard":["initiation","pressure","leadership"],"Warden":["protection","control","defense"],"Shapeshifter":["adaptation","transformation","deception"],"Exile":["isolation","survival","freedom"],"Rebel":["rulebreak","freedom","disruption"],"Saint":["protection","faith","heroism"],"Warlock":["power","risk","control"],"Beast":["power","survival","aggression"],"Architect":["systems","infrastructure","control"],"Phantom":["stealth","deception","information"],"Gladiator":["competition","mastery","pressure"],"Nomad":["mobility","survival","freedom"],"Juggernaut":["power","dominance","durability"],"Savior":["protection","rescue","heroism"],"Infiltrator":["stealth","information","disruption"],"Alchemist":["resource","transformation","systems"],"Marshal":["leadership","strategy","pressure"],"Herald":["inspiration","presence","information"],"Witch":["control","deception","power"],"Revenant":["survival","fear","vengeance"],"Prodigy":["mastery","precision","confidence"],"Destroyer":["pressure","power","dominance"],"Keeper":["protection","stability","knowledge"],"Seeker":["discovery","tracking","information"],"Bulwark":["protection","defense","stability"],"Rogue":["mobility","deception","outplay"],"Seer":["prediction","awareness","knowledge"],"Wraith":["stealth","fear","mobility"],"Paladin":["protection","faith","heroism"],"Harbinger":["fear","prediction","pressure"],
@@ -36,20 +2121,48 @@ var tagHints={
 "Divine Blood":["heroism","power","faith"],"Living Scripture":["knowledge","prediction"],"Relic Technology":["systems","constructs"],"Shared Consciousness":["team","coordination","information"],"Cosmic Corruption":["power","risk"],"Mutation":["mutation","adaptation"],"Living Machines":["systems","constructs"],"Sacred Geometry":["control","prediction"],"Living Constellations":["prediction","information"],"Temporal Artifacts":["time","prediction"],"Mirror Systems":["deception","replication"],"Cathedral Machinery":["protection","infrastructure"],"Symbiotic Armor":["survival","protection"],"Neural Lattice":["information","coordination"],"Data Swarm":["information","systems"]};
 var fields=[{id:'player-fantasy',label:'Pillar 1 — Player Fantasy'},{id:'growth-pattern',label:'Pillar 2 — Growth Pattern'},{id:'battlefield-function',label:'Pillar 3 — Battlefield Function'},{id:'signature-system',label:'Pillar 4 — Signature System'},{id:'core-drive',label:'Pillar 5 — Core Drive'},{id:'social-role',label:'Pillar 6 — Social Role'},{id:'identity',label:'Pillar 7 — Identity'}];
 function el(id){return document.getElementById(id)}function selected(id){var e=el(id);return e&&e.selectedIndex>0?e.options[e.selectedIndex].text:''}function custom(id){var c=el(id+'-custom');return c?c.value.trim():''}function eff(id){return custom(id)||selected(id)}function opts(id){var e=el(id),a=[];for(var i=1;e&&i<e.options.length;i++)a.push(e.options[i].text);return a}function setText(id,t){var e=el(id);if(!e)return;for(var i=0;i<e.options.length;i++){if(e.options[i].text===t||e.options[i].value===t){e.selectedIndex=i;return}}}function rnd(a){return a[Math.floor(Math.random()*a.length)]}
-function tags(text){if(!text)return[];if(tagHints[text])return tagHints[text];var l=text.toLowerCase(),out=[];Object.keys(archetypeTags).forEach(function(a){archetypeTags[a].forEach(function(t){if(l.indexOf(t)>=0)out.push(t)})});return out}
-function score(text){var a=el('archetype').value;if(!a||!text)return 0;var at=archetypeTags[a]||[],tt=tags(text);if(!tt.length)return 15;var h=0;tt.forEach(function(t){if(at.indexOf(t)>=0)h++});return Math.round(Math.min(100,(h/Math.min(at.length,tt.length))*100))}
-function scoredOptions(id){return opts(id).map(function(t){return{text:t,score:score(t)}}).sort(function(a,b){return b.score-a.score})}
+function normText(t){return (t||'').toString().toLowerCase().replace(/[→/—–-]/g,' ').replace(/[^a-z0-9 ]+/g,' ').replace(/\s+/g,' ').trim()}
+function keyTokens(t){var stop={'the':1,'and':1,'or':1,'of':1,'to':1,'with':1,'self':1,'team':1,'ability':1,'abilities':1,'control':0};return normText(t).split(' ').filter(function(x){return x.length>2&&!stop[x]})}
+function sim(a,b){a=normText(a);b=normText(b);if(!a||!b)return 0;if(a===b)return 1;if(a.indexOf(b)>=0||b.indexOf(a)>=0)return .86;var at=keyTokens(a),bt=keyTokens(b);if(!at.length||!bt.length)return 0;var bs={};bt.forEach(function(x){bs[x]=1});var hit=0;at.forEach(function(x){if(bs[x])hit++});return hit/Math.max(at.length,bt.length)}
+function addTopHeroOptions(){Object.keys(topHeroTraitOptions).forEach(function(id){var e=el(id);if(!e)return;var seen={};for(var i=0;i<e.options.length;i++)seen[normText(e.options[i].text)]=1;topHeroTraitOptions[id].forEach(function(t){if(!seen[normText(t)]){var o=document.createElement('option');o.text=t;o.value=t;e.add(o);seen[normText(t)]=1}})})}
+function bestPatternFieldSim(fieldId,text){if(!fieldId||!text)return 0;var best=0;topHeroPatterns.forEach(function(p){(p.fields[fieldId]||[]).forEach(function(v){best=Math.max(best,sim(text,v))})});return best}
+function fieldDatasetScore(fieldId,text){return Math.round(bestPatternFieldSim(fieldId,text)*100)}
+function bestFieldSimInPattern(p,fieldId,text){var best=0;(p.fields[fieldId]||[]).forEach(function(v){best=Math.max(best,sim(text,v))});return best}
+function selectedFieldValues(){return fields.map(function(f){return{id:f.id,label:f.label,value:eff(f.id)}}).filter(function(x){return x.value})}
+function datasetCoherence(){var selected=selectedFieldValues();if(selected.length===0)return{score:0,matches:[]};var pairScores=[];for(var i=0;i<selected.length;i++){for(var j=i+1;j<selected.length;j++){var best=0;topHeroPatterns.forEach(function(p){best=Math.max(best,bestFieldSimInPattern(p,selected[i].id,selected[i].value)*bestFieldSimInPattern(p,selected[j].id,selected[j].value))});pairScores.push(best)}}var pairAvg=pairScores.length?pairScores.reduce((a,b)=>a+b,0)/pairScores.length:0;var fieldAvg=selected.reduce(function(sum,x){return sum+bestPatternFieldSim(x.id,x.value)},0)/selected.length;var conceptScores=topHeroPatterns.map(function(p){var total=0;selected.forEach(function(x){total+=bestFieldSimInPattern(p,x.id,x.value)});return{character:p.character,game:p.game,score:Math.round(100*total/selected.length)}}).sort(function(a,b){return b.score-a.score}).slice(0,3);return{score:Math.round(100*(.65*pairAvg+.35*fieldAvg)),matches:conceptScores}}
+addTopHeroOptions();
+function tags(text){
+  if(!text)return[];
+  if(tagHints[text])return tagHints[text];
+  var l=text.toLowerCase(),out=[];
+  function add(){for(var i=0;i<arguments.length;i++){if(out.indexOf(arguments[i])<0)out.push(arguments[i]);}}
+  Object.keys(archetypeTags).forEach(function(a){archetypeTags[a].forEach(function(t){if(l.indexOf(t)>=0)add(t)})});
+  if(/dash|blink|web swing|swift step|pounce|teleport|vertical|reposition|speed|agile|acrobatic|skirmisher|ace|wraith|phantom|ninja|mobility/.test(l))add('mobility','speed','outplay');
+  if(/guardian|protector|healer|doctor|barrier|resurrection|save|survival|sustain|support|caretaker|tank|crusader|anchor|protection/.test(l))add('protection','team','defense','rescue');
+  if(/recon|watcher|observer|scout|surveillance|tracking|infrared|information|eyes|falcon|map mastery|truth|knowledge|vision|hacking/.test(l))add('information','awareness','prediction');
+  if(/control|denial|area|zone|hazard|terrain|portal|gravity|magnet|poison|chaos magic|reality|battle mage|space|territory/.test(l))add('control','territory','denial','space');
+  if(/tech|gadget|deployable|automated|mech|machine|engineer|inventor|workshop|powered armor|science|infrastructure|drone|network/.test(l))add('systems','constructs','infrastructure','resource');
+  if(/predator|hunter|executioner|assassin|flanker|pick|kill|soul harvest|vampiric|panther/.test(l))add('hunt','elimination','fear','execution');
+  if(/duelist|marksman|sniper|precision|carry|entry|frag|brawler|fighter/.test(l))add('mastery','precision','aggression','pressure');
+  if(/trickster|illusion|deception|glitch|mask|mischief|chaos|manipulat/.test(l))add('deception','disruption','creativity','mindgames');
+  if(/mutation|symbiote|adaptation|transform|monster|alien|biology|armor adaptation/.test(l))add('adaptation','growth','mutation','survival');
+  if(/hero|leader|champion|crusader|angel|charge|honor|icon|morale|commander/.test(l))add('heroism','presence','leadership','confidence');
+  if(/juggernaut|bruiser|dominance|attrition|power|armor|metal|unstoppable/.test(l))add('power','pressure','durability','dominance');
+  return out.length?out:['general'];
+}
+function score(text,fieldId){var a=el('archetype').value;if(!text)return 0;var dataScore=fieldDatasetScore(fieldId,text);if(!a)return dataScore;var at=archetypeTags[a]||[],tt=tags(text),tagScore=15;if(tt.length){var h=0;tt.forEach(function(t){if(at.indexOf(t)>=0)h++});tagScore=Math.round(Math.min(100,(h/Math.min(at.length,tt.length))*100))}return Math.round((tagScore*.58)+(dataScore*.42))}
+function scoredOptions(id){return opts(id).map(function(t){return{text:t,score:score(t,id)}}).sort(function(a,b){return b.score-a.score})}
 function pick(id,mode,tension){var s=scoredOptions(id),pool=s;if(el('archetype').value){if(mode==='Highly Coherent')pool=s.filter(x=>x.score>=40);else if(mode==='Layered with One Tension')pool=tension?s.filter(x=>x.score>0&&x.score<=35):s.filter(x=>x.score>=30);else if(mode==='Experimental')pool=s.filter(x=>x.score<=35);else pool=s.filter(x=>x.score>=20)}if(!pool.length)pool=s.slice(0,12);return rnd(pool).text}
-function current(){var sum=0,c=0,scores=[];fields.forEach(function(f){var t=eff(f.id),sc=score(t);if(t){sum+=sc;c++}scores.push({field:f,text:t||'[not selected]',score:t?sc:0})});return{avg:c?Math.round(sum/c):0,count:c,scores:scores}}
-function classify(avg,contr){if(avg>=52&&!contr)return'Strongly Reinforcing';if(avg>=42&&contr)return'Layered';if(avg>=30)return'Experimental but Explainable';return'Chaotic / Needs Review'}
+function current(){var sum=0,c=0,scores=[];fields.forEach(function(f){var t=eff(f.id),sc=score(t,f.id);if(t){sum+=sc;c++}scores.push({field:f,text:t||'[not selected]',score:t?sc:0,dataset:t?fieldDatasetScore(f.id,t):0})});var base=c?Math.round(sum/c):0,dc=datasetCoherence();var blended=c?Math.round((base*.7)+(dc.score*.3)):0;return{avg:blended,baseAvg:base,topFit:dc.score,count:c,scores:scores,matches:dc.matches}}
+function classify(avg,contr){if(avg>=62&&!contr)return'Strongly Reinforcing';if(avg>=52)return contr?'Layered but Strong':'Strong Top-30 Pattern';if(avg>=38)return'Experimental but Explainable';return'Chaotic / Needs Review'}
 function weakest(r){var s=r.scores.filter(x=>x.text!=='[not selected]');if(!s.length)return null;s.sort((a,b)=>a.score-b.score);return s[0]}
-function update(){var r=current(),contr=eff('contradiction'),a=el('archetype').value;el('coherence-score').textContent=a?r.avg+'%':'—';el('coherence-label').textContent=a?r.count+' of 7 pillars selected.':'Choose a dropdown archetype to score coherence.';el('concept-type').textContent=a?classify(r.avg,!!contr):'Unscored';var w=weakest(r);el('weakest-area').textContent=w?w.field.label+' — '+w.text+' ('+w.score+'%)':'Unscored';var lines=['Archetype: '+(custom('archetype')||selected('archetype')||'[not selected]'),''];r.scores.forEach(function(s){lines.push(s.field.label+': '+s.text+' — '+s.score+'% archetype coherence')});if(contr){lines.push('');lines.push('Contradiction: '+contr)}lines.push('');if(!a)lines.push('Recommendation: choose a dropdown archetype to enable scoring and repair tools.');else if(r.avg>=52)lines.push('Recommendation: highly coherent. Add one contradiction if it feels too expected.');else if(r.avg>=42)lines.push('Recommendation: strong layered concept. Make the tension intentional in the brief.');else if(r.avg>=30)lines.push('Recommendation: experimental. Use the export prompt to ask GPT to explain the connective tissue.');else lines.push('Recommendation: repair the weakest pillar or make the concept more coherent.');el('recommendations').textContent=lines.join('\n');return r}
+function update(){var r=current(),contr=eff('contradiction'),a=el('archetype').value;el('coherence-score').textContent=a?r.avg+'%':'—';el('coherence-label').textContent=a?r.count+' of 7 pillars selected.':'Choose a dropdown archetype to score coherence.';el('concept-type').textContent=a?classify(r.avg,!!contr):'Unscored';var w=weakest(r);el('weakest-area').textContent=w?w.field.label+' — '+w.text+' ('+w.score+'%)':'Unscored';var lines=['Archetype: '+(custom('archetype')||selected('archetype')||'[not selected]'),''];r.scores.forEach(function(s){lines.push(s.field.label+': '+s.text+' — '+s.score+'% archetype coherence')});if(contr){lines.push('');lines.push('Contradiction: '+contr)}lines.push('');lines.push('Top-30 Pattern Fit: '+r.topFit+'%');if(r.matches&&r.matches.length){lines.push('Closest observed references: '+r.matches.map(function(m){return m.character+' ('+m.game+', '+m.score+'%)'}).join('; '))}lines.push('');if(!a)lines.push('Recommendation: choose a dropdown archetype to enable archetype scoring. Top-30 pattern scoring still works.');else if(r.avg>=62)lines.push('Recommendation: highly coherent. Add one controlled contradiction only if the concept feels too expected.');else if(r.avg>=52)lines.push('Recommendation: strong concept. Make the spreadsheet-informed references visible in the brief without copying any one hero.');else if(r.avg>=38)lines.push('Recommendation: experimental. Use the export prompt to explain the connective tissue between pillars.');else lines.push('Recommendation: repair the weakest pillar or make the concept more coherent.');el('recommendations').textContent=lines.join('\n');return r}
 function randomize(all){if(all)setText('archetype',rnd(Object.keys(archetypeTags)));if(!el('archetype').value)setText('archetype',rnd(Object.keys(archetypeTags)));var mode=el('generation-mode').value,t=false;fields.forEach(function(f){el(f.id+'-custom').value='';var use=mode==='Layered with One Tension'&&!t&&Math.random()<.25;if(use)t=true;setText(f.id,pick(f.id,mode,use))});el('contradiction-custom').value='';if(mode==='Layered with One Tension'||mode==='Experimental'||Math.random()<.4)setText('contradiction',rnd(opts('contradiction')));else el('contradiction').selectedIndex=0;update();generateExport()}
 function repair(){var r=update(),w=weakest(r);if(!el('archetype').value||!w)return;el(w.field.id+'-custom').value='';setText(w.field.id,pick(w.field.id,'Highly Coherent',false));update();generateExport()}
 function makeCoherent(){var r=update();if(!el('archetype').value)return;r.scores.forEach(function(s){if(!s.text||s.text==='[not selected]'||s.score<30){el(s.field.id+'-custom').value='';setText(s.field.id,pick(s.field.id,'Highly Coherent',false))}});update();generateExport()}
 function tension(){if(!el('archetype').value)return update();var f=rnd([fields[4],fields[5],fields[6]]);el(f.id+'-custom').value='';setText(f.id,pick(f.id,'Layered with One Tension',true));setText('contradiction',rnd(opts('contradiction')));update();generateExport()}
 function clearAll(){['archetype','contradiction','player-fantasy','growth-pattern','battlefield-function','signature-system','core-drive','social-role','identity'].forEach(id=>el(id).selectedIndex=0);['archetype','contradiction','player-fantasy','growth-pattern','battlefield-function','signature-system','core-drive','social-role','identity'].forEach(function(id){var c=el(id+'-custom');if(c)c.value=''});el('character-name').value='';el('working-title').value='';el('export-output').value='';el('copy-status').textContent='Cleared.';update()}
-function generateExport(){var r=current(),name=el('character-name').value.trim(),title=el('working-title').value.trim(),contr=eff('contradiction'),lines=[];lines.push('Create a launch-roster-quality multiplayer hero shooter character brief from the following selections.','','Character Name: '+(name||'[invent a name]'),'Working Title / Class Nickname: '+(title||'[invent a title]'),'','PRIMARY PLAYER ARCHETYPE','- '+(custom('archetype')||selected('archetype')||'[not selected]'),'','7 CHARACTER PILLARS');fields.forEach(function(f,i){lines.push((i+1)+'. '+f.label.replace('Pillar '+(i+1)+' — ','')+': '+(eff(f.id)||'[not selected]'))});lines.push('','OPTIONAL CONTRADICTION','- '+(contr||'[none selected]'),'','COHERENCE READ','- Coherence Score: '+(el('archetype').value?r.avg+'%':'[not scored]'),'- Concept Type: '+(el('archetype').value?classify(r.avg,!!contr):'[not scored]'),'','BRIEF REQUIREMENTS','- Preserve the archetype as the player-facing promise.','- Use the seven pillars as immutable design constraints.','- Let complexity emerge from how the pillars combine.','- Do not make the character one-note; use the contradiction only if it strengthens the concept.','- Create a clear one-sentence fantasy.','- Include character summary, visual design, gameplay fantasy, ability direction, personality, narrative hooks, and roster role.','- Keep the character immediately understandable to directors and stakeholders.');el('export-output').value=lines.join('\n');el('copy-status').textContent='Export text generated.'}
+function generateExport(){var r=current(),name=el('character-name').value.trim(),title=el('working-title').value.trim(),contr=eff('contradiction'),lines=[];lines.push('Create a launch-roster-quality multiplayer hero shooter character brief from the following selections.','','Character Name: '+(name||'[invent a name]'),'Working Title / Class Nickname: '+(title||'[invent a title]'),'','PRIMARY PLAYER ARCHETYPE','- '+(custom('archetype')||selected('archetype')||'[not selected]'),'','7 CHARACTER PILLARS');fields.forEach(function(f,i){lines.push((i+1)+'. '+f.label.replace('Pillar '+(i+1)+' — ','')+': '+(eff(f.id)||'[not selected]'))});lines.push('','OPTIONAL CONTRADICTION','- '+(contr||'[none selected]'),'','COHERENCE READ','- Coherence Score: '+(r.count?r.avg+'%':'[not scored]'),'- Archetype/Field Fit: '+(r.count?r.baseAvg+'%':'[not scored]'),'- Top-30 Pattern Fit: '+(r.count?r.topFit+'%':'[not scored]'),'- Closest Observed References: '+(r.matches&&r.matches.length?r.matches.map(function(m){return m.character+' ('+m.game+', '+m.score+'%)'}).join('; '):'[none]'),'- Concept Type: '+(r.count?classify(r.avg,!!contr):'[not scored]'),'','BRIEF REQUIREMENTS','- Preserve the archetype as the player-facing promise.','- Use the seven pillars as immutable design constraints.','- Let complexity emerge from how the pillars combine.','- Do not make the character one-note; use the contradiction only if it strengthens the concept.','- Create a clear one-sentence fantasy.','- Include character summary, visual design, gameplay fantasy, ability direction, personality, narrative hooks, and roster role.','- Keep the character immediately understandable to directors and stakeholders.','- Use the closest observed references as structural inspiration only; do not clone their kit, theme, silhouette, or backstory.');el('export-output').value=lines.join('\n');el('copy-status').textContent='Export text generated.'}
 function copyExport(){generateExport();var o=el('export-output');o.focus();o.select();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(o.value).then(()=>el('copy-status').textContent='Copied export text to clipboard.').catch(()=>{document.execCommand('copy');el('copy-status').textContent='Copied export text to clipboard.'})}else{document.execCommand('copy');el('copy-status').textContent='Copied export text to clipboard.'}}
 el('randomize-all').onclick=function(){randomize(true)};el('randomize-pillars').onclick=function(){randomize(false)};el('score-coherence').onclick=update;el('repair-weak').onclick=repair;el('make-coherent').onclick=makeCoherent;el('add-tension').onclick=tension;el('clear-all').onclick=clearAll;el('generate-export').onclick=generateExport;el('copy-export').onclick=copyExport;['archetype','contradiction','player-fantasy','growth-pattern','battlefield-function','signature-system','core-drive','social-role','identity','generation-mode'].forEach(function(id){el(id).onchange=function(){update();generateExport()}});['archetype','contradiction','player-fantasy','growth-pattern','battlefield-function','signature-system','core-drive','social-role','identity'].forEach(function(id){el(id+'-custom').oninput=function(){update();generateExport()}});el('character-name').oninput=generateExport;el('working-title').oninput=generateExport;update();});
 </script>
